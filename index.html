@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>디지털 새싹 소외계층 특화 교육 프로그램 개발 대시보드</title>
+    <title>디지털 새싹 교육 프로그램 기획 및 개발 대시보드</title>
     
     <!-- SEO & SNS Open Graph Meta Tags -->
     <meta name="description" content="특수교육, 다문화가정, 도서벽지 소규모학교를 위해 최적화된 디지털 새싹 특화 교육 프로그램 제안 대시보드">
@@ -143,6 +143,37 @@
             background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+        }
+
+        /* Navigation menu linking the pages */
+        .nav-menu {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        .nav-link:hover {
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        body.light-theme .nav-link:hover {
+            background: rgba(0, 0, 0, 0.04);
+        }
+
+        .nav-link.active {
+            color: var(--primary);
+            background: var(--primary-glow);
+            border: 1px solid var(--primary);
         }
 
         .header-controls {
@@ -1191,6 +1222,12 @@
                 <span>NEW SAC PARTNER</span>
             </div>
             
+            <!-- Navigation menu -->
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link active"><i class="fa-solid fa-file-invoice"></i> 제안 기획서</a>
+                <a href="budget_simulator.html" class="nav-link"><i class="fa-solid fa-calculator"></i> 예산 & 운영 시뮬레이션</a>
+            </nav>
+            
             <div class="header-controls">
                 <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="화면 테마 전환">
                     <i class="fa-solid fa-moon" id="themeIcon"></i>
@@ -1372,7 +1409,7 @@
                         <span class="prog-tag tag-iot">로보틱스</span>
                     </div>
                     <h4>핑퐁 로봇 자율주행 배송기</h4>
-                    <p>모듈형 핑퐁 로봇에 적외선 및 가속도 센서를 연결하고, 장애물을 감지하여 모듈 속도를 동적으로 연동시킴으로써 목적지까지 화물을 전달하는 배송 시스템.</p>
+                    <p>모듈형 핑퐁 로봇에 적외선 및 가속도 센서를 연결하고, 장애물을 감지하여 모듈 속도를 동적으로 연동시끔으로써 목적지까지 화물을 전달하는 배송 시스템.</p>
                     <div class="program-meta">
                         <span><i class="fa-solid fa-truck-ramp-box"></i> 핑퐁로봇, 모터제어</span>
                         <span>초등 전학년</span>

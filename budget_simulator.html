@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>디지털 새싹 예산 설계 시뮬레이터 & 운영 체크리스트</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="디지털 새싹 교육과정 수혜인원 기반 예산 산출 시뮬레이터 및 운영기관 체크리스트 페이지">
+    
+    <!-- Google Fonts & Pretendard -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --theme-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+            /* Dark Theme Colors */
+            --bg-color: #080B11;
+            --card-bg: rgba(17, 24, 39, 0.7);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --primary: #8B5CF6;
+            --primary-glow: rgba(139, 92, 246, 0.3);
+            --secondary: #06B6D4;
+            --secondary-glow: rgba(6, 182, 212, 0.3);
+            --accent: #F43F5E;
+            --accent-glow: rgba(244, 63, 94, 0.3);
+            --text-main: #F9FAFB;
+            --text-muted: #9CA3AF;
+            --text-dark: #4B5563;
+            --glass-bg: rgba(15, 23, 42, 0.45);
+            --font-main: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+            --font-eng: 'Outfit', sans-serif;
+            
+            --input-bg: rgba(255, 255, 255, 0.03);
+            --input-border: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Light Theme Colors */
+        body.light-theme {
+            --bg-color: #F3F4F6;
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --card-border: rgba(0, 0, 0, 0.06);
+            --primary: #6D28D9;
+            --primary-glow: rgba(109, 40, 217, 0.15);
+            --secondary: #0891B2;
+            --secondary-glow: rgba(8, 145, 178, 0.15);
+            --accent: #E11D48;
+            --accent-glow: rgba(225, 29, 72, 0.15);
+            --text-main: #111827;
+            --text-muted: #4B5563;
+            --text-dark: #9CA3AF;
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            
+            --input-bg: rgba(0, 0, 0, 0.02);
+            --input-border: rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, var(--primary-glow) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, var(--secondary-glow) 0%, transparent 40%);
+            background-attachment: fixed;
+            transition: var(--theme-transition);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header & Nav */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--card-border);
+            padding: 1rem 0;
+            transition: var(--theme-transition);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-eng);
+            font-weight: 800;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Navigation menu linking the pages */
+        .nav-menu {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        .nav-link:hover {
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        body.light-theme .nav-link:hover {
+            background: rgba(0, 0, 0, 0.04);
+        }
+
+        .nav-link.active {
+            color: var(--primary);
+            background: var(--primary-glow);
+            border: 1px solid var(--primary);
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .theme-toggle-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+        .theme-toggle-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: scale(1.05);
+        }
+
+        body.light-theme .theme-toggle-btn {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 5rem 0 3rem 0;
+            text-align: center;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
+            padding: 0.5rem 1.25rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .hero h1 {
+            font-size: 2.75rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Grid layouts for simulator */
+        .simulator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+            margin-bottom: 5rem;
+        }
+
+        .sim-box {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            backdrop-filter: blur(8px);
+            transition: var(--theme-transition);
+        }
+
+        .sim-box h3 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 0.75rem;
+        }
+
+        .sim-box h3 i {
+            color: var(--primary);
+        }
+
+        .input-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .input-field-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-field-wrapper i {
+            position: absolute;
+            left: 1rem;
+            color: var(--text-dark);
+            font-size: 1rem;
+        }
+
+        .input-control {
+            width: 100%;
+            padding: 0.8rem 1rem 0.8rem 2.5rem;
+            background: var(--input-bg);
+            border: 1px solid var(--input-border);
+            border-radius: 10px;
+            color: var(--text-main);
+            font-size: 1rem;
+            font-weight: 600;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .input-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        /* Result display style */
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px dashed var(--card-border);
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+            margin-top: 1rem;
+            padding-top: 1.25rem;
+            border-top: 2px solid var(--card-border);
+        }
+
+        .result-label {
+            font-weight: 600;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .result-value {
+            font-family: var(--font-eng);
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: var(--text-main);
+        }
+
+        .result-item.total .result-label {
+            font-size: 1.15rem;
+            color: var(--accent);
+        }
+
+        .result-item.total .result-value {
+            font-size: 1.75rem;
+            color: var(--accent);
+            background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn-copy-budget {
+            width: 100%;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            color: white;
+            border: none;
+            padding: 0.9rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-copy-budget:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--secondary-glow);
+        }
+
+        /* Operational Checklist */
+        .checklist-box {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 3rem;
+            margin-bottom: 5rem;
+        }
+
+        .checklist-box h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--secondary);
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 1rem;
+        }
+
+        .checklist-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .check-category h4 {
+            font-size: 1.1rem;
+            font-weight: 800;
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-main);
+        }
+
+        .check-category h4 i {
+            color: var(--accent);
+        }
+
+        .check-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+        }
+
+        .check-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .check-item input[type="checkbox"] {
+            display: none;
+        }
+
+        .custom-checkbox {
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--card-border);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: transparent;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+            background: var(--input-bg);
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+        }
+
+        .check-item:hover .custom-checkbox {
+            border-color: var(--primary);
+        }
+
+        .check-item input[type="checkbox"]:checked + .custom-checkbox {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+            box-shadow: 0 0 8px var(--primary-glow);
+        }
+
+        .check-text {
+            font-size: 0.925rem;
+            color: var(--text-muted);
+            transition: all 0.2s;
+        }
+
+        .check-item input[type="checkbox"]:checked ~ .check-text {
+            color: var(--text-main);
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--card-bg);
+            border: 1px solid var(--secondary);
+            border-radius: 10px;
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 1100;
+        }
+
+        .toast.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast i {
+            color: var(--secondary);
+            font-size: 1.25rem;
+        }
+
+        .toast-content h4 {
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .toast-content p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        footer {
+            border-top: 1px solid var(--card-border);
+            padding: 3rem 0;
+            background: rgba(0, 0, 0, 0.1);
+            text-align: center;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        /* Responsive overrides */
+        @media (max-width: 1024px) {
+            .simulator-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .checklist-box {
+                padding: 1.5rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fa-solid fa-seedling"></i>
+                <span>NEW SAC PARTNER</span>
+            </div>
+            
+            <!-- Navigation menu -->
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link"><i class="fa-solid fa-file-invoice"></i> 제안 기획서</a>
+                <a href="budget_simulator.html" class="nav-link active"><i class="fa-solid fa-calculator"></i> 예산 & 운영 시뮬레이션</a>
+            </nav>
+            
+            <div class="header-controls">
+                <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="화면 테마 전환">
+                    <i class="fa-solid fa-moon" id="themeIcon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-tag">
+                <i class="fa-solid fa-file-shield"></i> 기획 고도화: 예산 산정 및 운영 조달 매뉴얼
+            </div>
+            <h1>제안서의 완성을 위한 <span>스마트 예산안 시뮬레이터</span></h1>
+            <p>디지털 새싹 운영기관 심사기준을 통과할 수 있도록 강사 인건비 표준 가이드를 적용하고, 수혜 인원 및 학급 수에 기반해 실시간으로 예산을 배분하고 복사할 수 있는 기획 유틸리티 툴입니다.</p>
+        </section>
+
+        <!-- Simulator Grid -->
+        <section class="simulator-grid">
+            
+            <!-- Left inputs -->
+            <div class="sim-box">
+                <h3><i class="fa-solid fa-sliders"></i> 실시간 변수 입력</h3>
+                
+                <div class="input-group">
+                    <label for="classesCount">총 운영 학급 수 (개 반)</label>
+                    <div class="input-field-wrapper">
+                        <i class="fa-solid fa-school"></i>
+                        <input type="number" id="classesCount" class="input-control" value="2" min="1" oninput="calculateBudget()">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="studentsPerClass">학급당 평균 학생 수 (명)</label>
+                    <div class="input-field-wrapper">
+                        <i class="fa-solid fa-users"></i>
+                        <input type="number" id="studentsPerClass" class="input-control" value="15" min="1" oninput="calculateBudget()">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="kitCost">1인당 교구비 (단가, 원)</label>
+                    <div class="input-field-wrapper">
+                        <i class="fa-solid fa-screwdriver-wrench"></i>
+                        <input type="number" id="kitCost" class="input-control" value="85000" min="0" step="5000" oninput="calculateBudget()">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="totalHours">총 교육 차시 (표준 12차시)</label>
+                    <div class="input-field-wrapper">
+                        <i class="fa-solid fa-clock"></i>
+                        <input type="number" id="totalHours" class="input-control" value="12" min="4" max="24" oninput="calculateBudget()">
+                    </div>
+                </div>
+
+                <div style="font-size: 0.8rem; color: var(--text-dark); margin-top: 1.5rem; line-height: 1.5;">
+                    * <strong>강사비 표준 기준</strong>: 디지털 새싹 사업 규정에 의거하여 <strong>주강사 시간당 50,000원</strong>, <strong>보조강사 시간당 30,000원</strong>이 실시간 일괄 배정됩니다. (2인 1조 교수 필수 원칙 수용)
+                </div>
+            </div>
+
+            <!-- Right results -->
+            <div class="sim-box" style="border-color: rgba(6, 182, 212, 0.2);">
+                <h3><i class="fa-solid fa-square-poll-vertical" style="color: var(--secondary);"></i> 산출 예산서 결과</h3>
+                
+                <div class="result-item">
+                    <div class="result-label">수혜 학생 총 인원</div>
+                    <div class="result-value" id="totalStudentsDisplay">30 명</div>
+                </div>
+
+                <div class="result-item">
+                    <div class="result-label">총 교구 구입 비</div>
+                    <div class="result-value" id="totalKitsDisplay">2,550,000 원</div>
+                </div>
+
+                <div class="result-item">
+                    <div class="result-label">주강사 인건비 총액</div>
+                    <div class="result-value" id="mainTeacherDisplay">1,200,000 원</div>
+                </div>
+
+                <div class="result-item">
+                    <div class="result-label">보조강사 인건비 총액</div>
+                    <div class="result-value" id="assistantTeacherDisplay">720,000 원</div>
+                </div>
+
+                <div class="result-item">
+                    <div class="result-label">기타 예비비 및 소모품비 (예산 5%)</div>
+                    <div class="result-value" id="etcCostDisplay">223,500 원</div>
+                </div>
+
+                <div class="result-item total">
+                    <div class="result-label">예산 산정 총 합계 (VAT 포함)</div>
+                    <div class="result-value" id="grandTotalDisplay">4,693,500 원</div>
+                </div>
+
+                <button class="btn-copy-budget" onclick="copyBudgetReport()">
+                    <i class="fa-regular fa-clipboard"></i> 예산 계획서 마크다운 복사
+                </button>
+            </div>
+
+        </section>
+
+        <!-- Checklist Box -->
+        <section class="checklist-box">
+            <h3><i class="fa-solid fa-list-check"></i> 디지털 새싹 현장 운영 조달 체크리스트</h3>
+            
+            <div class="checklist-group">
+                <!-- Category 1 -->
+                <div class="check-category">
+                    <h4><i class="fa-solid fa-laptop-code"></i> 학교측 인프라 확인</h4>
+                    <div class="check-list">
+                        <label class="check-item">
+                            <input type="checkbox" checked>
+                            <span class="custom-checkbox"><i class="fa-solid fa-check"></i></span>
+                            <span class="check-text">학교 컴퓨터실 가용 또는 크롬북/노트북 대수 확보 여부</span>
+                        </label>
+                        <label class="check-item">
+                            <input type="checkbox">
+                            <span class="custom-checkbox"><i class="fa-solid fa-check"></i></span>
+                            <span class="check-text">학교 내부 무선 Wi-Fi 접속 권한 및 게스트 허용 요청</span>
+                        </label>
+                        <label class="check-item">
+                            <input type="checkbox">
+                            <span class="custom-checkbox"><i class="fa-solid fa-check"></i></span>
+                            <span class="check-text">외부 사이트 및 프로그램 설치 우회 차단 해제 요청</span>
+                        </label>
+                        <label class="check-item">
+                            <input type="checkbox">
+                            <span class="custom-checkbox"><i class="fa-solid fa-check"></i></span>
+                            <span class="check-text">멀티탭 및 충전 보관함 위치 확보 확인</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Category 2 -->
+                <div class="check-category">
+                    <h4><i class="fa-solid fa-chalkboard-user"></i> 강사 및 행정 관리</h4>
+                    <div class="check-list">
+                        <label class="check-item">
+                            <input type="checkbox" checked>
+                            <span class="custom-checkbox"><i class="fa-solid fa-check"></i></span>
+                            <span class="check-text">2인 1조(주강사 1인, 보조강사 1인) 신원 확보 및 매칭</span>
+                        </label>
+                        <label class="check-item">
+                            <input type="checkbox">
+                            <span class="custom-checkbox"><i class="fa-solid fa-check"></i></span>
+                            <span class="check-text">강사 성범죄 경력 및 아동학대관련범죄 전력 조회 동의</span>
+                        </label>
+                        <label class="check-item">
+                            <input type="checkbox">
+                            <span class="custom-checkbox"><i class="fa-solid fa-check"></i></span>
+                            <span class="check-text">사전/사후 디지털 역량 진단 온라인 설문 링크 확보</span>
+                        </label>
+                        <label class="check-item">
+                            <input type="checkbox">
+                            <span class="custom-checkbox"><i class="fa-solid fa-check"></i></span>
+                            <span class="check-text">매 차시 출석 관리용 수기/온라인 전자 서명 양식 준비</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Category 3 -->
+                <div class="check-category">
+                    <h4><i class="fa-solid fa-box-open"></i> 교구 조달 및 배포</h4>
+                    <div class="check-list">
+                        <label class="check-item">
+                            <input type="checkbox" checked>
+                            <span class="custom-checkbox"><i class="fa-solid fa-check"></i></span>
+                            <span class="check-text">학급 학생 총 인원에 맞춘 교구 패키징 사전 불량 검사</span>
+                        </label>
+                        <label class="check-item">
+                            <input type="checkbox">
+                            <span class="custom-checkbox"><i class="fa-solid fa-check"></i></span>
+                            <span class="check-text">학생 개별 교구 지급 확인 서명 명부 작성</span>
+                        </label>
+                        <label class="check-item">
+                            <input type="checkbox">
+                            <span class="custom-checkbox"><i class="fa-solid fa-check"></i></span>
+                            <span class="check-text">여분용 스페어 센서 및 소모용 건전지 1세트 조달</span>
+                        </label>
+                        <label class="check-item">
+                            <input type="checkbox">
+                            <span class="custom-checkbox"><i class="fa-solid fa-check"></i></span>
+                            <span class="check-text">수업 완료 후 쓰레기 배출용 친환경 봉투 및 청소 도구 구비</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fa-solid fa-circle-check"></i>
+        <div class="toast-content">
+            <h4>복사 완료!</h4>
+            <p>예산 계획서가 클립보드에 마크다운 양식으로 복사되었습니다.</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 디지털 새싹 신규 운영기관 파트너 프로그램 개발 제안서.</p>
+            <p style="font-size: 0.75rem; color: var(--text-dark);">본 시뮬레이터는 디지털 새싹의 강사인건비 표준 준수 및 실시간 배분 로직을 적용한 서브 페이지입니다.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle Engine
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            
+            body.classList.toggle('light-theme');
+            
+            if (body.classList.contains('light-theme')) {
+                themeIcon.className = 'fa-solid fa-sun';
+                localStorage.setItem('theme', 'light');
+            } else {
+                themeIcon.className = 'fa-solid fa-moon';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Apply saved theme on load
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            const themeIcon = document.getElementById('themeIcon');
+            
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-theme');
+                themeIcon.className = 'fa-solid fa-sun';
+            } else {
+                document.body.classList.remove('light-theme');
+                themeIcon.className = 'fa-solid fa-moon';
+            }
+            // First calculation
+            calculateBudget();
+        });
+
+        // Live Budget Calculator logic
+        function calculateBudget() {
+            const classesCount = parseInt(document.getElementById('classesCount').value) || 0;
+            const studentsPerClass = parseInt(document.getElementById('studentsPerClass').value) || 0;
+            const kitCost = parseInt(document.getElementById('kitCost').value) || 0;
+            const totalHours = parseInt(document.getElementById('totalHours').value) || 0;
+
+            const totalStudents = classesCount * studentsPerClass;
+            const totalKitsCost = totalStudents * kitCost;
+
+            // Teacher cost rate: Main = 50,000 / Assist = 30,000
+            const mainTeacherCost = classesCount * totalHours * 50000;
+            const assistTeacherCost = classesCount * totalHours * 30000;
+
+            const subTotal = totalKitsCost + mainTeacherCost + assistTeacherCost;
+            const etcCost = Math.round(subTotal * 0.05); // 5% etc operational cost
+            const grandTotal = subTotal + etcCost;
+
+            // Render displays with comma styling
+            document.getElementById('totalStudentsDisplay').innerText = totalStudents.toLocaleString() + " 명";
+            document.getElementById('totalKitsDisplay').innerText = totalKitsCost.toLocaleString() + " 원";
+            document.getElementById('mainTeacherDisplay').innerText = mainTeacherCost.toLocaleString() + " 원";
+            document.getElementById('assistantTeacherDisplay').innerText = assistTeacherCost.toLocaleString() + " 원";
+            document.getElementById('etcCostDisplay').innerText = etcCost.toLocaleString() + " 원";
+            document.getElementById('grandTotalDisplay').innerText = grandTotal.toLocaleString() + " 원";
+        }
+
+        // Markdown copy logic
+        function copyBudgetReport() {
+            const classesCount = document.getElementById('classesCount').value;
+            const studentsPerClass = document.getElementById('studentsPerClass').value;
+            const kitCost = parseInt(document.getElementById('kitCost').value).toLocaleString();
+            const totalHours = document.getElementById('totalHours').value;
+
+            const totalStudents = document.getElementById('totalStudentsDisplay').innerText;
+            const totalKits = document.getElementById('totalKitsDisplay').innerText;
+            const mainTeacher = document.getElementById('mainTeacherDisplay').innerText;
+            const assistantTeacher = document.getElementById('assistantTeacherDisplay').innerText;
+            const etcCost = document.getElementById('etcCostDisplay').innerText;
+            const grandTotal = document.getElementById('grandTotalDisplay').innerText;
+
+            const markdownReport = `### [디지털 새싹 교육 프로그램 예산 계획서]
+■ 운영조건: 총 ${classesCount}개 반 / 반당 ${studentsPerClass}명 (총 수혜 인원: ${totalStudents})
+■ 교육시간: 총 ${totalHours}차시 교육 기준
+■ 교구단가: 1인당 ${kitCost}원 산정
+
+[예산 세부 내역]
+1. 총 교구 구입 비: ${totalKits}
+2. 주강사 인건비 총액 (시간당 5만 원): ${mainTeacher}
+3. 보조강사 인건비 총액 (시간당 3만 원): ${assistantTeacher}
+4. 기타 운영비 및 예비비 (5%): ${etcCost}
+------------------------------------------------
+★ 합계 예산 산정액 (VAT 포함): ${grandTotal}`;
+
+            const textarea = document.createElement('textarea');
+            textarea.value = markdownReport;
+            document.body.appendChild(textarea);
+            textarea.select();
+            
+            try {
+                document.execCommand('copy');
+                showToast();
+            } catch (err) {
+                console.error('Failed to copy', err);
+            }
+            document.body.removeChild(textarea);
+        }
+
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.add('active');
+            setTimeout(() => {
+                toast.classList.remove('active');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
