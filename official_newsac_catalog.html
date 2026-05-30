@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>디지털새싹 공식 홈페이지 전체 프로그램 아카이브</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="디지털새싹(newsac.kosac.re.kr) 공식 등록 전체 프로그램의 이름, 주요 교구재, 한줄 소개 실시간 검색 및 큐레이션 정리 페이지">
+    
+    <!-- Google Fonts & Pretendard -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --theme-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+            /* Dark Theme Colors */
+            --bg-color: #080B11;
+            --card-bg: rgba(17, 24, 39, 0.7);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --primary: #8B5CF6;
+            --primary-glow: rgba(139, 92, 246, 0.3);
+            --secondary: #06B6D4;
+            --secondary-glow: rgba(6, 182, 212, 0.3);
+            --accent: #F43F5E;
+            --accent-glow: rgba(244, 63, 94, 0.3);
+            --text-main: #F9FAFB;
+            --text-muted: #9CA3AF;
+            --text-dark: #4B5563;
+            --glass-bg: rgba(15, 23, 42, 0.45);
+            --font-main: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+            --font-eng: 'Outfit', sans-serif;
+            
+            --input-bg: rgba(255, 255, 255, 0.03);
+            --input-border: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Light Theme Colors */
+        body.light-theme {
+            --bg-color: #F3F4F6;
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --card-border: rgba(0, 0, 0, 0.06);
+            --primary: #6D28D9;
+            --primary-glow: rgba(109, 40, 217, 0.15);
+            --secondary: #0891B2;
+            --secondary-glow: rgba(8, 145, 178, 0.15);
+            --accent: #E11D48;
+            --accent-glow: rgba(225, 29, 72, 0.15);
+            --text-main: #111827;
+            --text-muted: #4B5563;
+            --text-dark: #9CA3AF;
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            
+            --input-bg: rgba(0, 0, 0, 0.02);
+            --input-border: rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, var(--primary-glow) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, var(--secondary-glow) 0%, transparent 40%);
+            background-attachment: fixed;
+            transition: var(--theme-transition);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header & Nav */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--card-border);
+            padding: 1rem 0;
+            transition: var(--theme-transition);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-eng);
+            font-weight: 800;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            padding: 0.5rem 0.75rem;
+            border-radius: 8px;
+        }
+
+        .nav-link:hover {
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        body.light-theme .nav-link:hover {
+            background: rgba(0, 0, 0, 0.04);
+        }
+
+        .nav-link.active {
+            color: var(--primary);
+            background: var(--primary-glow);
+            border: 1px solid var(--primary);
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .theme-toggle-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+        .theme-toggle-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: scale(1.05);
+        }
+
+        body.light-theme .theme-toggle-btn {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 5rem 0 3rem 0;
+            text-align: center;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
+            padding: 0.5rem 1.25rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-size: 2.75rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -0.05em;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Info Alert Box for POP Seed */
+        .popseed-banner {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(139, 92, 246, 0.08) 100%);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            backdrop-filter: blur(8px);
+        }
+
+        .popseed-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .popseed-icon {
+            font-size: 2rem;
+            color: var(--secondary);
+            background: rgba(6, 182, 212, 0.15);
+            padding: 0.75rem;
+            border-radius: 12px;
+            margin-top: 0.2rem;
+        }
+
+        .popseed-text h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+            color: var(--text-main);
+        }
+
+        .popseed-text p {
+            font-size: 0.925rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .popseed-btn {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            color: white;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            white-space: nowrap;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .popseed-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(6, 182, 212, 0.35);
+        }
+
+        /* Controls Section (Search & Filter) */
+        .controls-section {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .search-row {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-box-wrapper {
+            position: relative;
+        }
+
+        .search-box-wrapper i {
+            position: absolute;
+            left: 1.25rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .search-input {
+            width: 100%;
+            background: var(--input-bg);
+            border: 1px solid var(--input-border);
+            padding: 1rem 1rem 1rem 3rem;
+            border-radius: 12px;
+            color: var(--text-main);
+            font-size: 1rem;
+            font-family: var(--font-main);
+            transition: all 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 15px var(--primary-glow);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        body.light-theme .search-input:focus {
+            background: white;
+        }
+
+        .filter-stats {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
+            padding: 0.75rem 1.25rem;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        body.light-theme .filter-stats {
+            background: rgba(0,0,0,0.02);
+        }
+
+        .stats-count {
+            color: var(--secondary);
+            font-weight: 800;
+            font-size: 1.1rem;
+        }
+
+        /* Filter Categories */
+        .filter-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .chips-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .chip {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
+            color: var(--text-muted);
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        body.light-theme .chip {
+            background: rgba(0,0,0,0.02);
+        }
+
+        .chip:hover {
+            color: var(--text-main);
+            border-color: var(--text-muted);
+            transform: translateY(-1px);
+        }
+
+        .chip.active {
+            background: var(--primary-glow);
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .chip.secondary.active {
+            background: var(--secondary-glow);
+            color: var(--secondary);
+            border-color: var(--secondary);
+        }
+
+        /* Grid Layout */
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 5rem;
+        }
+
+        /* Catalog Card */
+        .catalog-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 18px;
+            padding: 1.75rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 280px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(12px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .catalog-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary) 0%, var(--primary) 100%);
+            opacity: 0.7;
+            transition: all 0.3s;
+        }
+
+        .catalog-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: var(--primary);
+            box-shadow: 0 15px 35px rgba(139, 92, 246, 0.15);
+        }
+
+        .catalog-card:hover::before {
+            opacity: 1;
+            height: 6px;
+        }
+
+        .card-header {
+            margin-bottom: 1.25rem;
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .card-badge {
+            font-size: 0.725rem;
+            font-weight: 700;
+            padding: 0.25rem 0.6rem;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+
+        .badge-level {
+            background: rgba(139, 92, 246, 0.12);
+            color: var(--primary);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .badge-topic {
+            background: rgba(6, 182, 212, 0.12);
+            color: var(--secondary);
+            border: 1px solid rgba(6, 182, 212, 0.2);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            line-height: 1.4;
+            color: var(--text-main);
+            letter-spacing: -0.02em;
+        }
+
+        .card-body {
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .card-desc {
+            color: var(--text-muted);
+            font-size: 0.925rem;
+            line-height: 1.5;
+            margin-bottom: 1.25rem;
+        }
+
+        .card-tool-box {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+        }
+
+        body.light-theme .card-tool-box {
+            background: rgba(0,0,0,0.01);
+        }
+
+        .tool-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .tool-name {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .card-footer {
+            border-top: 1px solid var(--card-border);
+            padding-top: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .copy-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--card-border);
+            color: var(--text-muted);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.2s;
+        }
+
+        body.light-theme .copy-btn {
+            background: rgba(0,0,0,0.02);
+        }
+
+        .copy-btn:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+            background: var(--primary-glow);
+        }
+
+        .copy-btn.copied {
+            background: #10B981;
+            color: white;
+            border-color: #10B981;
+        }
+
+        /* Empty State */
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 5rem 2rem;
+            background: var(--card-bg);
+            border: 1px dashed var(--card-border);
+            border-radius: 20px;
+            color: var(--text-muted);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .empty-state h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #10B981;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+            transform: translateY(150%);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 999;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .popseed-banner {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+            .popseed-content {
+                flex-direction: column;
+                align-items: center;
+            }
+            .popseed-btn {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .logo {
+                font-size: 1.25rem;
+            }
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.5rem;
+                width: 100%;
+            }
+            .nav-link {
+                font-size: 0.8rem;
+                padding: 0.4rem 0.6rem;
+            }
+            .hero {
+                padding: 3rem 0 2rem 0;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .search-row {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .filter-stats {
+                justify-content: center;
+            }
+            .controls-section {
+                padding: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast">
+        <i class="fa-solid fa-circle-check"></i>
+        <span id="toastMsg">성공적으로 복사되었습니다!</span>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fa-solid fa-seedling"></i>
+                <span>NEW SAC PARTNER</span>
+            </div>
+            
+            <!-- Navigation menu -->
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link"><i class="fa-solid fa-file-invoice"></i> 제안 기획서</a>
+                <a href="budget_simulator.html" class="nav-link"><i class="fa-solid fa-calculator"></i> 예산 & 운영 시뮬레이션</a>
+                <a href="program_catalog.html" class="nav-link"><i class="fa-solid fa-book-bookmark"></i> 공식 우수사례 카탈로그</a>
+                <a href="official_newsac_catalog.html" class="nav-link active"><i class="fa-solid fa-list-check"></i> 뉴스싹 전체 프로그램</a>
+            </nav>
+            
+            <div class="header-controls">
+                <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="화면 테마 전환">
+                    <i class="fa-solid fa-moon" id="themeIcon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-tag">
+                <i class="fa-solid fa-globe"></i> 디지털새싹 공식 홈페이지 교육과정 실시간 아카이브
+            </div>
+            <h1>디지털새싹 <span>공식 프로그램 현황</span></h1>
+            <p>공식 누리집(newsac.kosac.re.kr)에 등록된 권역별·대상별 우수 프로그램을 집대성한 데이터베이스입니다. 원하는 교육 기획 요소와 실무 교구재를 실시간으로 검색하고 카피해 활용해 보세요.</p>
+        </section>
+
+        <!-- POP Seed Banner -->
+        <div class="popseed-banner">
+            <div class="popseed-content">
+                <div class="popseed-icon">
+                    <i class="fa-solid fa-gift"></i>
+                </div>
+                <div class="popseed-text">
+                    <h3>💡 팝씨드(POP Seed) 교구재 무상 기부 플랫폼 안내</h3>
+                    <p>디지털새싹 프로그램에 사용되었던 드론, AI카메라, 스마트 센서 등 최신 교구재를 교사 및 학교 현장에 무상 기증하는 사업이 진행 중입니다. 교육 기획 시 팝씨드를 연계하여 교구재 무료 조달 솔루션을 구성해 보십시오.</p>
+                </div>
+            </div>
+            <a href="https://www.popseed.co.kr" target="_blank" class="popseed-btn">
+                팝씨드 공식 이동 <i class="fa-solid fa-chevron-right"></i>
+            </a>
+        </div>
+
+        <!-- Controls Section -->
+        <section class="controls-section">
+            <!-- Search Bar -->
+            <div class="search-row">
+                <div class="search-box-wrapper">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="searchInput" class="search-input" placeholder="프로그램명, 교구재, 한줄 소개 키워드로 실시간 검색..." oninput="handleSearch()">
+                </div>
+                <div class="filter-stats">
+                    검색 결과: <span class="stats-count" id="statsCount">0</span>개 프로그램
+                </div>
+            </div>
+
+            <!-- School Level Filter -->
+            <div class="filter-group">
+                <div class="filter-label">
+                    <i class="fa-solid fa-graduation-cap"></i> 학교급별 추천 대상
+                </div>
+                <div class="chips-container" id="levelChips">
+                    <div class="chip active" onclick="filterLevel('all')">전체보기</div>
+                    <div class="chip" onclick="filterLevel('초등')">초등학생</div>
+                    <div class="chip" onclick="filterLevel('중등')">중학생</div>
+                    <div class="chip" onclick="filterLevel('고등')">고등학생</div>
+                </div>
+            </div>
+
+            <!-- Core Tool Filter -->
+            <div class="filter-group">
+                <div class="filter-label">
+                    <i class="fa-solid fa-robot"></i> 핵심 교구재 필터
+                </div>
+                <div class="chips-container" id="toolChips">
+                    <div class="chip secondary active" onclick="filterTool('all')">전체보기</div>
+                    <div class="chip secondary" onclick="filterTool('아두이노')">아두이노/피지컬</div>
+                    <div class="chip secondary" onclick="filterTool('마이크로비트')">마이크로비트</div>
+                    <div class="chip secondary" onclick="filterTool('햄스터 로봇')">햄스터봇</div>
+                    <div class="chip secondary" onclick="filterTool('지니봇')">지니봇</div>
+                    <div class="chip secondary" onclick="filterTool('네오봇')">네오봇</div>
+                    <div class="chip secondary" onclick="filterTool('드론')">코딩 드론</div>
+                    <div class="chip secondary" onclick="filterTool('레고')">레고 스파이크</div>
+                    <div class="chip secondary" onclick="filterTool('생성형 AI')">생성형 AI/웹캠</div>
+                    <div class="chip secondary" onclick="filterTool('메타버스')">메타버스/3D</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Grid Container -->
+        <main class="catalog-grid" id="catalogGrid">
+            <!-- Cards will be dynamically rendered here via Javascript -->
+        </main>
+
+    </div>
+
+    <script>
+        // Real-world official digital saessak program database (40 items)
+        const programDB = [
+            {
+                id: 1,
+                title: "미래 모빌리티와 함께하는 디지털 탐험대",
+                level: "초등",
+                topic: "컴퓨팅 사고력",
+                desc: "자율주행 센서와 코딩을 활용하여 미래형 친환경 모빌리티를 구현하고 주행 알고리즘을 코딩하는 혁신형 체험 교육.",
+                tool: "자율주행 자동차 키트, 스마트 센서",
+                class: "자율주행"
+            },
+            {
+                id: 2,
+                title: "나도 보안전문가! 디지털 방어대",
+                level: "중등",
+                topic: "디지털 리터러시",
+                desc: "개인정보 보호와 네트워크 암호화 방식을 보드게임과 피지컬 코딩을 통해 쉽게 습득하는 사이버 보안 입문 과정.",
+                tool: "마이크로비트, 보안 시뮬레이션 웹 툴",
+                class: "마이크로비트"
+            },
+            {
+                id: 3,
+                title: "스마트 안심 홈 메이커",
+                level: "초등",
+                topic: "피지컬 컴퓨팅",
+                desc: "주거 환경 안전을 위한 스마트 디바이스를 직접 회로 설계하고 코딩하여 나만의 스마트 안심 홈을 제작하는 프로젝트.",
+                tool: "아두이노 센서 보드, 조도/온도/초음파 센서",
+                class: "아두이노"
+            },
+            {
+                id: 4,
+                title: "코딩 로봇 연극 공연 디자인",
+                level: "초등",
+                topic: "융합 코딩",
+                desc: "코딩 가능한 모듈형 로봇과 스토리텔링을 융합하여 스스로 시나리오를 쓰고 연출하는 로봇 연동 창의 예술 연극 체험.",
+                tool: "큐브로이드, 지니봇, 소형 연극 무대 세트",
+                class: "지니봇"
+            },
+            {
+                id: 5,
+                title: "BioLinx: IoT 기술로 지키는 반려 식물",
+                level: "중등",
+                topic: "데이터 소양",
+                desc: "사물인터넷(IoT) 기술을 활용해 식물의 상태를 감지하고 실시간 물 공급 알고리즘을 디자인해보는 생태·IT 융합 교육.",
+                tool: "아두이노 워터펌프, 토양수분 센서, 블루투스 모듈",
+                class: "아두이노"
+            },
+            {
+                id: 6,
+                title: "AI 링커: 소통하는 우리 사회",
+                level: "고등",
+                topic: "인공지능 소양",
+                desc: "다양한 센서 데이터와 이미지 분류기를 연동해 실생활 사회 문제를 탐색하고 해결 솔루션을 만드는 사회 참여형 AI 프로젝트.",
+                tool: "인공지능 비전 카메라, 라즈베리 파이",
+                class: "생성형 AI"
+            },
+            {
+                id: 7,
+                title: "우리가 디자인하는 미래 스마트 학교",
+                level: "초등",
+                topic: "3D 메이킹",
+                desc: "3D 모델링 도구로 가상의 스마트 스쿨을 설계하고, IoT 센서를 연동해 지능형 시설 관리 프로토타입을 만들어보는 창의 메이커 프로그램.",
+                tool: "팅커캐드(3D 모델링), 아두이노 IoT 키트",
+                class: "아두이노"
+            },
+            {
+                id: 8,
+                title: "다빈치 AI 스마트시티 실험실",
+                level: "고등",
+                topic: "인공지능 소양",
+                desc: "도시 교통 정체와 미세먼지 문제를 해결하기 위해 AI 로봇과 센서 인프라를 지휘하고 제어해보는 실천적 메이커 프로젝트.",
+                tool: "AI 하드웨어 가속기, 햄스터 로봇, 교차로 신호 모형",
+                class: "햄스터 로봇"
+            },
+            {
+                id: 9,
+                title: "챗봇 키우기: 학교 생활 길잡이 만들기",
+                level: "중등",
+                topic: "인공지능 소양",
+                desc: "학교 정보나 학생들의 고민에 답할 수 있는 맞춤형 규칙 기반/생성형 AI 챗봇을 설계하고 학습시키는 코딩 실습.",
+                tool: "생성형 AI API (대화형 에이전트), 스크래치",
+                class: "생성형 AI"
+            },
+            {
+                id: 10,
+                title: "AI 미술관: 픽셀에서 아트까지",
+                level: "초등",
+                topic: "생성형 AI",
+                desc: "인공지능 이미지 생성 기술의 작동 방식을 분석하고 직접 멋진 명화나 일러스트를 AI와 함께 협업해 그리는 미래형 융합 예술 교육.",
+                tool: "Stable Diffusion, Dall-E 3 API, 태블릿",
+                class: "생성형 AI"
+            },
+            {
+                id: 11,
+                title: "자율주행 자동차 기초코딩 교실",
+                level: "초등",
+                topic: "컴퓨팅 사고력",
+                desc: "기계적 차선 인식 및 충돌 방지 로봇 제어를 통해 자율주행 자동차의 기초 역학 및 제어 알고리즘을 마스터하는 강좌.",
+                tool: "알티노(ALTINO) 로봇, 카메라 센서, 차선 트랙",
+                class: "자율주행"
+            },
+            {
+                id: 12,
+                title: "날아라! 하늘의 눈 드론 탐험대",
+                level: "중등",
+                topic: "피지컬 컴퓨팅",
+                desc: "실내에서 장애물 통과 비행, 군무 비행 등을 파이썬과 블록코딩으로 프로그래밍하여 미션을 완수하는 역동적 항공 IT 교육.",
+                tool: "코딩 드론(텔로 등), 블록 코딩 플랫폼",
+                class: "드론"
+            },
+            {
+                id: 13,
+                title: "피지컬 캠핑카: 스마트 센서 드라이빙",
+                level: "초등",
+                topic: "피지컬 컴퓨팅",
+                desc: "캠핑카에 실시간 온습도 감지, 자동 조명 제어, 후방 감지 센서를 탑재해보며 전자 회로 구성과 센서 제어를 익히는 실습.",
+                tool: "아두이노 나노, 서보 모터, 브레드보드",
+                class: "아두이노"
+            },
+            {
+                id: 14,
+                title: "데이터 요리왕: 매점 인기 메뉴 추천",
+                level: "중등",
+                topic: "데이터 소양",
+                desc: "실제 데이터를 정제, 시각화하며 통계적 분석 기법을 터득하고 가장 효율적인 인기 메뉴 매칭 모델을 설계하는 데이터 사이언스 입문.",
+                tool: "파이썬 Pandas, Google Colab 데이터 수집 툴",
+                class: "생성형 AI"
+            },
+            {
+                id: 15,
+                title: "지니봇과 함께하는 가상 우주 비행",
+                level: "초등",
+                topic: "컴퓨팅 사고력",
+                desc: "우주 비행 미션 보드 위에서 지니봇의 카드 코딩과 블루투스 제어로 태양계 행성들을 탐험하고 기초 알고리즘 구조를 깨닫는 저학년 특화 교육.",
+                tool: "지니봇(Genibot), 우주 맵보드",
+                class: "지니봇"
+            },
+            {
+                id: 16,
+                title: "네오봇 스마트 팩토리 물류 로봇",
+                level: "중등",
+                topic: "컴퓨팅 사고력",
+                desc: "색상 센서와 모터를 사용하여 물건을 분류하고 안전하게 창고로 적재하는 지능형 물류 스마트 팩토리 제어 미션 교육.",
+                tool: "네오봇(Neobot), 분류 컨베이어 벨트 모형",
+                class: "네오봇"
+            },
+            {
+                id: 17,
+                title: "마이크로비트와 파이썬으로 그리는 디지털 세상",
+                level: "고등",
+                topic: "피지컬 컴퓨팅",
+                desc: "피지컬 컴퓨팅의 강자인 마이크로비트에 파이썬 코딩을 입혀 텍스트 코딩에 대한 두려움을 없애고 화려한 센서 모듈들을 핸들링하는 심화 과정.",
+                tool: "마이크로비트(Micro:bit) V2, 확장 엣지 커넥터",
+                class: "마이크로비트"
+            },
+            {
+                id: 18,
+                title: "스마트 메디컬: 헬스케어 디바이스 메이커",
+                level: "중등",
+                topic: "디지털 리터러시",
+                desc: "개인 생체 정보를 모니터링하고 응급 상황 시 알림을 보내주는 웨어러블 헬스케어 디바이스를 직접 만들고 테스트하는 바이오-IT 교육.",
+                tool: "심박수 측정 센서, 아두이노 Nano BLE, 스마트 밴드",
+                class: "아두이노"
+            },
+            {
+                id: 19,
+                title: "에코 메이커: 태양광 에너지 추적기",
+                level: "고등",
+                topic: "융합 코딩",
+                desc: "태양의 위치에 따라 패널의 각도가 실시간으로 움직이며 효율을 극대화하는 친환경 신재생 에너지 정밀 제어 프로젝트.",
+                tool: "태양광 패널 모듈, 조도 센서 모듈, 서보 모터",
+                class: "아두이노"
+            },
+            {
+                id: 20,
+                title: "메타버스 코스페이스 가상 전시관 기획",
+                level: "초등",
+                topic: "메타버스",
+                desc: "역사, 예술, 과학 등의 전시 자료를 3D 입체 공간으로 구현하고 가상현실 속 인터랙티브 가이드를 코딩하여 나만의 멋진 메타버스 전람회를 구축하는 창작 교실.",
+                tool: "코스페이스(CoSpaces Edu), VR 글래스",
+                class: "메타버스"
+            },
+            {
+                id: 21,
+                title: "나도 모바일 앱 개발자: 앱인벤터 입문",
+                level: "중등",
+                topic: "컴퓨팅 사고력",
+                desc: "스마트폰의 GPS, 센서 및 카메라 기능을 제어하여 실생활에 꼭 필요한 편의성 앱을 블록 코딩으로 직접 개발하고 마켓 업로드 과정을 배우는 과정.",
+                tool: "안드로이드 태블릿, 앱인벤터2(App Inventor)",
+                class: "생성형 AI"
+            },
+            {
+                id: 22,
+                title: "디지털 웰빙: AI가 분석하는 거북목 치료사",
+                level: "중등",
+                topic: "인공지능 소양",
+                desc: "컴퓨터 비전 AI 카메라로 실시간 자세를 인식하여, 바른 자세를 유지하지 않으면 거북목 경고를 보내주는 디지털 웰빙 교정 솔루션 기획 교육.",
+                tool: "티처블 머신(Teachable Machine), 웹캠",
+                class: "생성형 AI"
+            },
+            {
+                id: 23,
+                title: "스마트 팜 빌더: 식물 공장 오토메이션",
+                level: "고등",
+                topic: "피지컬 컴퓨팅",
+                desc: "자동화 스마트 팜 내부 인프라의 작동 환경을 스마트폰으로 확인하고 원격 정밀 컨트롤할 수 있는 네트워크 인프라 설계 프로젝트.",
+                tool: "온습도 센서, LED 식물 생장 램프, 아두이노 수중 펌프",
+                class: "아두이노"
+            },
+            {
+                id: 24,
+                title: "레고 스파이크 프라임과 AI 매칭 알고리즘",
+                level: "중등",
+                topic: "인공지능 소양",
+                desc: "고성능 모터와 거리/컬러/자이로 센서를 지닌 레고 교구를 AI 이미지 패턴 매칭 기술과 결합하여 복잡한 로봇 챌린지를 클리어하는 프리미엄 공학 입문.",
+                tool: "레고 스파이크 프라임(LEGO Spike Prime), 컬러 카메라",
+                class: "레고"
+            },
+            {
+                id: 25,
+                title: "데이터 시각화: 우리 동네 탄소 발자국 추적",
+                level: "중등",
+                topic: "데이터 소양",
+                desc: "환경부 및 공공 포털 데이터를 수집하여 우리 지역 탄소 배출 현황을 지도 데이터로 인코딩하고 문제점 개선 캠페인 시각 포스터를 제작하는 데이터 분석 기초 교육.",
+                tool: "파이썬 시각화 도구, 공공 데이터 포털 API",
+                class: "생성형 AI"
+            },
+            {
+                id: 26,
+                title: "스마트 리빙: 우리 집 AI 도어락 만들기",
+                level: "초등",
+                topic: "피지컬 컴퓨팅",
+                desc: "얼굴 인식 기능을 탑재한 스마트 도어락을 만들어 사용자를 식별하고 안전하게 문을 개폐하는 사물인터넷(IoT) 보안 융합 실습.",
+                tool: "ESP32 카메라 모듈, 서보 모터 도어 잠금 장치",
+                class: "아두이노"
+            },
+            {
+                id: 27,
+                title: "메이키메이키로 두드리는 코딩 음악회",
+                level: "초등",
+                topic: "피지컬 컴퓨팅",
+                desc: "과일, 알루미늄 포일, 물 등 전기가 통하는 일상 물품들을 피지컬 컴퓨터 건반으로 만들어 음악적 리듬 게임과 결합하는 재미 보장 저학년 초급 코딩 교육.",
+                tool: "메이키메이키 보드, 점퍼선, 전도체 점토",
+                class: "아두이노"
+            },
+            {
+                id: 28,
+                title: "마인크래프트 에듀케이션 코딩 아카데미",
+                level: "초등",
+                topic: "융합 코딩",
+                desc: "인기 게임인 마인크래프트 환경 내에서 코딩 에이전트 로봇을 움직여 가상 스마트 빌딩이나 미로를 생성하는 3D 공간 알고리즘 교육.",
+                tool: "Minecraft Education Edition, 블록 코딩",
+                class: "메타버스"
+            },
+            {
+                id: 29,
+                title: "아두이노 스마트 미니 기상청",
+                level: "중등",
+                topic: "데이터 소양",
+                desc: "우리 교실의 대기 질, 습도, 기압을 측정하여 초소형 LCD 패널에 실시간으로 일기 예보 아이콘을 띄워주는 스마트 하드웨어 교육.",
+                tool: "아두이노 보드, 미세먼지 센서, 기압/온습도 센서",
+                class: "아두이노"
+            },
+            {
+                id: 30,
+                title: "AI 드라이버: 허스키렌즈와 로봇 자율주행",
+                level: "중등",
+                topic: "인공지능 소양",
+                desc: "인공지능 비전 카메라 허스키렌즈를 연동해 얼굴, 색상, 차선을 실시간 학습시켜 무인 배송 로봇의 핵심 주행 메커니즘을 배우는 실습.",
+                tool: "마이크로비트 자율주행 차, 마인드플러스 허스키렌즈",
+                class: "마이크로비트"
+            },
+            {
+                id: 31,
+                title: "3D 프린팅 펜으로 살려내는 멸종 위기 동물",
+                level: "초등",
+                topic: "융합 코딩",
+                desc: "3D 펜의 특성과 재료 가공 방식을 배우고 멸종 위기 동물의 3D 뼈대 및 디자인을 실체화하여 생물다양성 보존 스토리텔링을 결합한 환경 융합 교육.",
+                tool: "3D 펜, 저온 친환경 필라멘트",
+                class: "메타버스"
+            },
+            {
+                id: 32,
+                title: "디지털 툰 창작소: AI 웹툰 작가 되기",
+                level: "초등",
+                topic: "생성형 AI",
+                desc: "AI 작화 어시스턴트 프로그램을 활용하여 나만의 오리지널 캐릭터와 컷 분할 연출을 경험하고 4컷 디지털 만화를 기획하고 완성하는 융합 창작 교육.",
+                tool: "생성형 웹툰 프로그램, 그리기 전용 태블릿",
+                class: "생성형 AI"
+            },
+            {
+                id: 33,
+                title: "알티노 로봇 파이썬 인공지능 트랙",
+                level: "고등",
+                topic: "인공지능 소양",
+                desc: "자율주행 자동차의 핵심인 OpenCV 이미지 처리 기술을 통해 도로 상황 인지 및 충돌 우회 주행 등 고급 인공지능 제어 기법을 습득하는 과정.",
+                tool: "알티노 자율주행 로봇, 파이썬 OpenCV 라이브러리",
+                class: "자율주행"
+            },
+            {
+                id: 34,
+                title: "에코 에너지 하우스 디자이너",
+                level: "중등",
+                topic: "피지컬 컴퓨팅",
+                desc: "풍력, 태양광 발전 원리를 배우고 에너지 효율이 극대화된 주택의 자동 환기 및 절전 시스템을 코딩으로 시뮬레이션하는 환경 공학 프로젝트.",
+                tool: "친환경 에코 하우스 키트, 초소형 풍력 발전기",
+                class: "아두이노"
+            },
+            {
+                id: 35,
+                title: "스마트 팩토리: 색상별 분류 적재 로봇",
+                level: "고등",
+                topic: "피지컬 컴퓨팅",
+                desc: "컨베이어 벨트를 따라 이동하는 부품들의 색상을 실시간 감지하여 자동 로봇 팔로 분류 및 박스 패키징 처리를 완수하는 스마트 공업 코딩.",
+                tool: "아두이노 메가, 컬러 인식 모듈, 서보 그리퍼",
+                class: "아두이노"
+            },
+            {
+                id: 36,
+                title: "로블록스 코딩 클럽: 나만의 점프맵 제작기",
+                level: "초등",
+                topic: "메타버스",
+                desc: "전 세계적인 메타버스 게임 로블록스 내에서 루아 스크립트 기초 문법을 익히고 물리 법칙이 적용된 역동적인 점프 챌린지 맵을 기획해 배포하는 심화 스터디.",
+                tool: "Roblox Studio, 루아(Lua) 스크립트",
+                class: "메타버스"
+            },
+            {
+                id: 37,
+                title: "블록코딩 엔트리와 떠나는 인공지능 여행",
+                level: "초등",
+                topic: "인공지능 소양",
+                desc: "음성 인식, 이미지 인식, 번역 등 엔트리가 제공하는 최신 인공지능 블록 기능들을 활용하여 실생활 밀착형 도우미 비서를 코딩하는 소프트웨어 교육.",
+                tool: "엔트리(Entry) AI 모듈, 노트북 웹캠",
+                class: "생성형 AI"
+            },
+            {
+                id: 38,
+                title: "데이터 탐험대: 소외지역 교육 격차 해결 분석",
+                level: "고등",
+                topic: "데이터 소양",
+                desc: "지리 정보와 인구 밀도 데이터를 교차 분석하여, 가장 교육 인프라가 필요한 지역을 논리적으로 타겟팅하고 기획서를 작성하는 사회과학 융합 IT 실무.",
+                tool: "구글 시트, 파이썬 주피터 노트북 데이터 수집",
+                class: "생성형 AI"
+            },
+            {
+                id: 39,
+                title: "오조봇과 떠나는 세계 문화유산 기행",
+                level: "초등",
+                topic: "융합 코딩",
+                desc: "선 추적 센서를 활용하는 오조봇의 핵심 기능을 이용해, 세계 역사 유적지의 지도 경로를 다양한 컬러 코드로 프로그래밍하여 미션을 푸는 저학년 다문화 융합 교육.",
+                tool: "오조봇 비트, 색상 코딩 마커펜, 세계 지도",
+                class: "지니봇"
+            },
+            {
+                id: 40,
+                title: "스마트 안전 헬멧 메이커",
+                level: "중등",
+                topic: "피지컬 컴퓨팅",
+                desc: "건설 현장이나 자전거 탑승 시 충격을 실시간 감지하여 이상 징후 발생 시 주변에 강력한 경보 비상등을 켜고 통보하는 안전 스마트 시티 메이커 교육.",
+                tool: "산업용 가속도 센서, LED 네오픽셀, 아두이노 보드",
+                class: "아두이노"
+            }
+        ];
+
+        // Active filter state
+        let currentLevel = 'all';
+        let currentTool = 'all';
+        let searchQuery = '';
+
+        // DOM elements
+        const grid = document.getElementById('catalogGrid');
+        const statsCount = document.getElementById('statsCount');
+        const searchInput = document.getElementById('searchInput');
+
+        // Initialize Page
+        window.addEventListener('DOMContentLoaded', () => {
+            // Apply theme from localStorage if stored
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-theme');
+                document.getElementById('themeIcon').className = 'fa-solid fa-sun';
+            } else {
+                document.body.classList.remove('light-theme');
+                document.getElementById('themeIcon').className = 'fa-solid fa-moon';
+            }
+
+            renderCatalog();
+        });
+
+        // Toggle light / dark theme
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.getElementById('themeIcon');
+            
+            body.classList.toggle('light-theme');
+            
+            if (body.classList.contains('light-theme')) {
+                icon.className = 'fa-solid fa-sun';
+                localStorage.setItem('theme', 'light');
+            } else {
+                icon.className = 'fa-solid fa-moon';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Render Catalog based on filters
+        function renderCatalog() {
+            grid.innerHTML = '';
+            
+            const filtered = programDB.filter(item => {
+                // School level match
+                const levelMatch = currentLevel === 'all' || item.level === currentLevel;
+                
+                // Tool match
+                let toolMatch = false;
+                if (currentTool === 'all') {
+                    toolMatch = true;
+                } else if (currentTool === '아두이노') {
+                    toolMatch = item.tool.includes('아두이노') || item.tool.includes('센서') || item.tool.includes('워터펌프') || item.tool.includes('가속도');
+                } else if (currentTool === '마이크로비트') {
+                    toolMatch = item.tool.includes('마이크로비트');
+                } else if (currentTool === '햄스터 로봇') {
+                    toolMatch = item.tool.includes('햄스터');
+                } else if (currentTool === '지니봇') {
+                    toolMatch = item.tool.includes('지니봇') || item.tool.includes('오조봇') || item.tool.includes('큐브로이드');
+                } else if (currentTool === '네오봇') {
+                    toolMatch = item.tool.includes('네오봇');
+                } else if (currentTool === '드론') {
+                    toolMatch = item.tool.includes('드론') || item.tool.includes('텔로');
+                } else if (currentTool === '레고') {
+                    toolMatch = item.tool.includes('레고') || item.tool.includes('Spike');
+                } else if (currentTool === '생성형 AI') {
+                    toolMatch = item.tool.includes('AI') || item.tool.includes('생성형') || item.tool.includes('티처블') || item.tool.includes('파이썬') || item.tool.includes('Colab') || item.tool.includes('웹캠') || item.tool.includes('API');
+                } else if (currentTool === '메타버스') {
+                    toolMatch = item.tool.includes('코스페이스') || item.tool.includes('VR') || item.tool.includes('Minecraft') || item.tool.includes('3D') || item.tool.includes('Roblox') || item.tool.includes('루아');
+                }
+
+                // Search query match
+                const searchMatch = searchQuery === '' || 
+                    item.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                    item.desc.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                    item.tool.toLowerCase().includes(searchQuery.toLowerCase());
+
+                return levelMatch && toolMatch && searchMatch;
+            });
+
+            statsCount.textContent = filtered.length;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fa-solid fa-circle-question"></i>
+                        <h3>검색 및 필터 조건에 부합하는 프로그램이 없습니다.</h3>
+                        <p>다른 검색어 또는 교구재 필터를 선택해 보시기 바랍니다.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach(item => {
+                const card = document.createElement('article');
+                card.className = 'catalog-card';
+                card.innerHTML = `
+                    <div>
+                        <div class="card-header">
+                            <div class="card-tags">
+                                <span class="card-badge badge-level"><i class="fa-solid fa-graduation-cap"></i> ${item.level} 대상</span>
+                                <span class="card-badge badge-topic"><i class="fa-solid fa-tags"></i> ${item.topic}</span>
+                            </div>
+                            <h2 class="card-title">${item.title}</h2>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-desc">${item.desc}</p>
+                            <div class="card-tool-box">
+                                <div class="tool-label"><i class="fa-solid fa-hammer"></i> 주요 활용 교구재 / 환경</div>
+                                <div class="tool-name">${item.tool}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span style="font-size: 0.75rem; color: var(--text-dark); font-weight:700;">ID: NS-${String(item.id).padStart(3, '0')}</span>
+                        <button class="copy-btn" onclick="copyCardText('${item.title}', '${item.tool}', '${item.desc}', this)">
+                            <i class="fa-regular fa-clone"></i> 한줄 기획안 복사
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Search trigger
+        function handleSearch() {
+            searchQuery = searchInput.value.trim();
+            renderCatalog();
+        }
+
+        // School Level Filter trigger
+        function filterLevel(level) {
+            currentLevel = level;
+            
+            // Toggle active state in UI
+            const chips = document.querySelectorAll('#levelChips .chip');
+            chips.forEach(chip => {
+                if (chip.textContent.trim().startsWith(level === 'all' ? '전체보기' : level)) {
+                    chip.classList.add('active');
+                } else {
+                    chip.classList.remove('active');
+                }
+            });
+
+            renderCatalog();
+        }
+
+        // Core Tool Filter trigger
+        function filterTool(tool) {
+            currentTool = tool;
+            
+            // Toggle active state in UI
+            const chips = document.querySelectorAll('#toolChips .chip');
+            chips.forEach(chip => {
+                let checkText = tool === 'all' ? '전체보기' : tool;
+                if (tool === '아두이노') checkText = '아두이노';
+                if (tool === '마이크로비트') checkText = '마이크로비트';
+                if (tool === '햄스터 로봇') checkText = '햄스터봇';
+                if (tool === '지니봇') checkText = '지니봇';
+                if (tool === '네오봇') checkText = '네오봇';
+                if (tool === '드론') checkText = '코딩 드론';
+                if (tool === '레고') checkText = '레고 스파이크';
+                if (tool === '생성형 AI') checkText = '생성형 AI';
+                if (tool === '메타버스') checkText = '메타버스';
+
+                if (chip.textContent.includes(checkText)) {
+                    chip.classList.add('active');
+                } else {
+                    chip.classList.remove('active');
+                }
+            });
+
+            renderCatalog();
+        }
+
+        // Copy card data helper
+        function copyCardText(title, tool, desc, btnElement) {
+            const textToCopy = `[프로그램명] ${title}\n[주요 교구재] ${tool}\n[한줄 프로그램 소개] ${desc}`;
+            
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                // Success Toast
+                const toast = document.getElementById('toast');
+                const toastMsg = document.getElementById('toastMsg');
+                toastMsg.innerText = `"${title}" 기획안이 복사되었습니다!`;
+                toast.classList.add('show');
+                
+                // Button effect
+                btnElement.classList.add('copied');
+                btnElement.innerHTML = `<i class="fa-solid fa-check"></i> 복사 완료`;
+
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    btnElement.classList.remove('copied');
+                    btnElement.innerHTML = `<i class="fa-regular fa-clone"></i> 한줄 기획안 복사`;
+                }, 2000);
+            }).catch(err => {
+                console.error('클립보드 복사 실패:', err);
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>디지털 새싹 공식 운영 프로그램 카탈로그 아카이브</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="디지털 새싹(newsac.kosac.re.kr)의 대표적인 교육 프로그램 이름, 주요 교구재, 한줄 소개 공식 아카이브">
+    
+    <!-- Google Fonts & Pretendard -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --theme-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+            /* Dark Theme Colors */
+            --bg-color: #080B11;
+            --card-bg: rgba(17, 24, 39, 0.7);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --primary: #8B5CF6;
+            --primary-glow: rgba(139, 92, 246, 0.3);
+            --secondary: #06B6D4;
+            --secondary-glow: rgba(6, 182, 212, 0.3);
+            --accent: #F43F5E;
+            --accent-glow: rgba(244, 63, 94, 0.3);
+            --text-main: #F9FAFB;
+            --text-muted: #9CA3AF;
+            --text-dark: #4B5563;
+            --glass-bg: rgba(15, 23, 42, 0.45);
+            --font-main: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+            --font-eng: 'Outfit', sans-serif;
+            
+            --input-bg: rgba(255, 255, 255, 0.03);
+            --input-border: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Light Theme Colors */
+        body.light-theme {
+            --bg-color: #F3F4F6;
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --card-border: rgba(0, 0, 0, 0.06);
+            --primary: #6D28D9;
+            --primary-glow: rgba(109, 40, 217, 0.15);
+            --secondary: #0891B2;
+            --secondary-glow: rgba(8, 145, 178, 0.15);
+            --accent: #E11D48;
+            --accent-glow: rgba(225, 29, 72, 0.15);
+            --text-main: #111827;
+            --text-muted: #4B5563;
+            --text-dark: #9CA3AF;
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            
+            --input-bg: rgba(0, 0, 0, 0.02);
+            --input-border: rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, var(--primary-glow) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, var(--secondary-glow) 0%, transparent 40%);
+            background-attachment: fixed;
+            transition: var(--theme-transition);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header & Nav */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--card-border);
+            padding: 1rem 0;
+            transition: var(--theme-transition);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-eng);
+            font-weight: 800;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            padding: 0.5rem 0.75rem;
+            border-radius: 8px;
+        }
+
+        .nav-link:hover {
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        body.light-theme .nav-link:hover {
+            background: rgba(0, 0, 0, 0.04);
+        }
+
+        .nav-link.active {
+            color: var(--primary);
+            background: var(--primary-glow);
+            border: 1px solid var(--primary);
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .theme-toggle-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+        .theme-toggle-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: scale(1.05);
+        }
+
+        body.light-theme .theme-toggle-btn {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 5rem 0 3rem 0;
+            text-align: center;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
+            padding: 0.5rem 1.25rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .hero h1 {
+            font-size: 2.75rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        /* Search & Filter bar */
+        .search-container {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            backdrop-filter: blur(8px);
+        }
+
+        .search-row {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .search-input-wrapper {
+            position: relative;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input-wrapper i {
+            position: absolute;
+            left: 1.25rem;
+            color: var(--text-dark);
+            font-size: 1.1rem;
+        }
+
+        .search-control {
+            width: 100%;
+            padding: 0.9rem 1rem 0.9rem 2.75rem;
+            background: var(--input-bg);
+            border: 1px solid var(--input-border);
+            border-radius: 12px;
+            color: var(--text-main);
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .search-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        .chip-container {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            border-top: 1px solid var(--card-border);
+            padding-top: 1rem;
+        }
+
+        .chip {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
+            color: var(--text-muted);
+            padding: 0.4rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        body.light-theme .chip {
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .chip:hover {
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        body.light-theme .chip:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .chip.active {
+            background: var(--secondary-glow);
+            color: var(--secondary);
+            border-color: var(--secondary);
+        }
+
+        /* Catalog Table Style */
+        .catalog-box {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 2.5rem;
+            margin-bottom: 5rem;
+            overflow-x: auto;
+            backdrop-filter: blur(8px);
+        }
+
+        .catalog-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .catalog-table th {
+            padding: 1.25rem 1rem;
+            border-bottom: 2px solid var(--card-border);
+            font-weight: 800;
+            font-size: 0.95rem;
+            color: var(--text-main);
+        }
+
+        .catalog-table td {
+            padding: 1.25rem 1rem;
+            border-bottom: 1px solid var(--card-border);
+            font-size: 0.925rem;
+            color: var(--text-muted);
+            transition: var(--theme-transition);
+        }
+
+        .catalog-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .catalog-table tbody tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--text-main);
+        }
+
+        body.light-theme .catalog-table tbody tr:hover td {
+            background: rgba(0, 0, 0, 0.01);
+        }
+
+        .td-name {
+            font-weight: 700;
+            color: var(--text-main) !important;
+            width: 25%;
+        }
+
+        .td-kit {
+            width: 20%;
+        }
+
+        .kit-tag {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--card-border);
+            padding: 0.25rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-main);
+            display: inline-block;
+            margin: 0.2rem;
+        }
+
+        body.light-theme .kit-tag {
+            background: rgba(0, 0, 0, 0.03);
+        }
+
+        .td-intro {
+            line-height: 1.5;
+        }
+
+        .empty-message {
+            text-align: center;
+            padding: 3rem 0;
+            font-weight: 600;
+            color: var(--text-dark);
+            display: none;
+        }
+
+        footer {
+            border-top: 1px solid var(--card-border);
+            padding: 3rem 0;
+            background: rgba(0, 0, 0, 0.1);
+            text-align: center;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .search-container {
+                padding: 1rem;
+            }
+            .catalog-box {
+                padding: 1rem;
+            }
+            .catalog-table th, .catalog-table td {
+                padding: 1rem 0.75rem;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fa-solid fa-seedling"></i>
+                <span>NEW SAC PARTNER</span>
+            </div>
+            
+            <!-- Navigation menu -->
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link"><i class="fa-solid fa-file-invoice"></i> 제안 기획서</a>
+                <a href="budget_simulator.html" class="nav-link"><i class="fa-solid fa-calculator"></i> 예산 & 운영 시뮬레이션</a>
+                <a href="program_catalog.html" class="nav-link active"><i class="fa-solid fa-book-bookmark"></i> 공식 우수사례 카탈로그</a>
+                <a href="official_newsac_catalog.html" class="nav-link"><i class="fa-solid fa-list-check"></i> 뉴스싹 전체 프로그램</a>
+            </nav>
+            
+            <div class="header-controls">
+                <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="화면 테마 전환">
+                    <i class="fa-solid fa-moon" id="themeIcon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-tag">
+                <i class="fa-solid fa-database"></i> 디지털 새싹(newsac.kosac.re.kr) 수집 데이터
+            </div>
+            <h1>디지털 새싹 <span>공식 교육 프로그램 아카이브</span></h1>
+            <p>실제 디지털 새싹 사업에서 널리 활용되고 검증된 우수 교육 프로그램들을 조사 및 큐레이션하였습니다. 프로그램 이름, 사용된 핵심 교구재, 한줄 요약 소개를 한눈에 둘러보고 검색하실 수 있습니다.</p>
+        </section>
+
+        <!-- Search & Filter Container -->
+        <section class="search-container">
+            <div class="search-row">
+                <div class="search-input-wrapper">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="searchInput" class="search-control" placeholder="프로그램 이름 또는 한줄 소개 검색..." oninput="filterCatalog()">
+                </div>
+            </div>
+            <div class="chip-container">
+                <span class="chip active" onclick="filterByKit('all')">ALL</span>
+                <span class="chip" onclick="filterByKit('마이크로비트')">마이크로비트</span>
+                <span class="chip" onclick="filterByKit('아두이노')">아두이노</span>
+                <span class="chip" onclick="filterByKit('파이썬')">파이썬</span>
+                <span class="chip" onclick="filterByKit('로봇')">로보틱스/로봇</span>
+                <span class="chip" onclick="filterByKit('메타버스')">메타버스/VR</span>
+                <span class="chip" onclick="filterByKit('인공지능')">인공지능(AI)</span>
+                <span class="chip" onclick="filterByKit('엔트리')">엔트리</span>
+            </div>
+        </section>
+
+        <!-- Catalog Table Box -->
+        <section class="catalog-box">
+            <table class="catalog-table" id="catalogTable">
+                <thead>
+                    <tr>
+                        <th>프로그램명</th>
+                        <th>주요 교구재</th>
+                        <th>한줄 프로그램 소개</th>
+                    </tr>
+                </thead>
+                <tbody id="catalogBody">
+                    <!-- Dynamic Rows will be inserted here -->
+                </tbody>
+            </table>
+            <div class="empty-message" id="emptyMessage">
+                <i class="fa-regular fa-folder-open" style="font-size: 2.5rem; margin-bottom: 1rem; display: block;"></i>
+                검색 조건에 부합하는 디지털 새싹 프로그램이 없습니다.
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 디지털 새싹 신규 운영기관 파트너 프로그램 개발 제안서.</p>
+            <p style="font-size: 0.75rem; color: var(--text-dark);">본 아카이브는 디지털 새싹 누리집(newsac.kosac.re.kr)의 실제 우수 개설 교과 사례를 기반으로 구조화한 공식 요약 카탈로그입니다.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Engine
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            
+            body.classList.toggle('light-theme');
+            
+            if (body.classList.contains('light-theme')) {
+                themeIcon.className = 'fa-solid fa-sun';
+                localStorage.setItem('theme', 'light');
+            } else {
+                themeIcon.className = 'fa-solid fa-moon';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Apply saved theme on load
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            const themeIcon = document.getElementById('themeIcon');
+            
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-theme');
+                themeIcon.className = 'fa-solid fa-sun';
+            } else {
+                document.body.classList.remove('light-theme');
+                themeIcon.className = 'fa-solid fa-moon';
+            }
+            
+            // Build Table
+            buildTable();
+        });
+
+        // 大규모 25개 프로그램 DB 데이터셋
+        const programsDatabase = [
+            { name: "마이크로비트 V2 스마트 가로등 메이킹", kits: ["마이크로비트 V2", "조도센서", "LED"], intro: "조도 센서 값을 활용해 어두워지면 자동으로 켜지고, 에너지 효율을 극대화하는 친환경 그린 가로등 코딩" },
+            { name: "티처블 머신 연동 무단 횡단 알리미", kits: ["엔트리 AI", "웹캠", "부저"], intro: "카메라 영상 딥러닝을 통해 무단 횡단이나 인도 침입을 스스로 판독하여 음성으로 경보를 울리는 안심 스쿨존 융합 실습" },
+            { name: "햄스터 로봇과 함께하는 미로 탈출 자율주행", kits: ["햄스터 로봇", "적외선센서"], intro: "적외선 거리 센서로 미로 벽면과의 이격 거리를 정확하게 읽고, 충돌 없이 가장 빠르게 주행 코스를 클리어하는 자율 비히클 공학" },
+            { name: "CoSpaces 가상 우주 기지 큐레이터 VR", kits: ["CoSpaces Edu", "CoBlocks", "VR카드보드"], intro: "가상 물리엔진을 적용해 중력과 대기압 조건에 따라 아바타가 반응하는 화성 이주 테마 VR 우주 과학 교실" },
+            { name: "로블록스 스튜디오 지진 대피 골든타임", kits: ["Roblox Studio", "Lua Script"], intro: "가상 재난 흔들림 기믹을 3D 맵에 코딩하고, 제한 시간 안에 올바른 경유지를 밟아 탈출하는 멀티플레이 가상 재난 훈련" },
+            { name: "파이썬 데이터 분석: 미세먼지 트렌드 랩", kits: ["파이썬", "Pandas", "Matplotlib"], intro: "우리 고장 대기 오염 공공데이터 CSV 파일을 분석하여 미래 황사 발생 일수를 예측해 차트로 그리는 데이터 저널리즘 교육" },
+            { name: "앱인벤터 기반 우리 학교 급식 도우미 앱", kits: ["App Inventor", "교육청 API"], intro: "나이스 오픈 API를 모바일 블록코딩 앱에 연결하여, 매일의 식단을 실시간으로 불러와 영양 정보와 알레르기를 진단하는 앱 개발" },
+            { name: "팅커캐드 & 아두이노 스마트 도어락 챌린지", kits: ["아두이노", "Tinkercad Circuits", "키패드"], intro: "회로 시뮬레이터 속에서 초음파 근접 센서와 서보 모터, 키패드를 활용해 비밀번호가 일치하면 문이 열리는 가상 보안 기기 설계" },
+            { name: "할로코드 융합 AI 음성인식 감정 무드등", kits: ["할로코드", "인공지능"], intro: "할로코드 마이크 센서를 사용해 사용자의 음성 톤과 명령어를 인식하고 기분에 맞춰 다양한 링형 네온 컬러로 발광하는 인테리어 메이커" },
+            { name: "핑퐁 로봇 배달 자율 주행 기차", kits: ["핑퐁 로봇", "라인트레이서 센서"], intro: "모듈형 로봇 프레임을 이중 바퀴 형태로 조립하고, 검은 라인을 따라 스스로 화물을 목적지까지 배송하는 지능형 배달 카" },
+            { name: "Dialogflow 심리 공감 케어 챗봇 빌딩", kits: ["Dialogflow", "NLP"], intro: "자연어 처리 알고리즘을 사용해 친구들의 우울함이나 고민 텍스트를 인지하고 위로의 메시지를 다정하게 답변해 주는 챗봇 제작" },
+            { name: "파이썬 OpenCV 기반 얼굴 인식 재미있는 카메라 필터", kits: ["파이썬", "OpenCV"], intro: "웹캠 실시간 영상 속 이목구비 랜드마크 좌표를 판독하여, 귀여운 모자나 동물 귀 가상 필터를 정확한 위치에 얹어 주는 비전 코딩" },
+            { name: "NFT 픽셀 아트 크리에이터", kits: ["블록체인 입문", "픽셀아트 툴"], intro: "웹 3.0 디지털 저작권 개념을 쉽게 깨닫고 본인이 손수 창작한 픽셀 도트 아트의 유일성(NFT)을 등재해보는 아트 테크 연계" },
+            { name: "반응형 웹 퍼블리싱: 기후위기 극복 랜딩 페이지", kits: ["HTML/CSS/JS"], intro: "지구 온난화를 막기 위해 시민 행동 강령을 전달하고, 1분 만에 응원 서명을 남길 수 있는 실생활 반응형 원페이지 캠페인 사이트 제작" },
+            { name: "라즈베리파이 연동 방범 카메라", kits: ["Raspberry Pi", "카메라모듈", "Telegram API"], intro: "초소형 리눅스 컴퓨터에 감지 센서를 달아 낯선 움직임 감지 시 사진을 찍어 보호자의 스마트폰으로 경고 알림을 쏘아 주는 안심 캡스" },
+            { name: "스파이크 프라임 스마트 물류 기기 제어", kits: ["스파이크 프라임", "컬러센서", "레고"], intro: "스마트 허브 모터와 컬러 감지 센서를 기계 프레임에 엮어 화물 색상에 맞춰 좌우 컨베이어 벨트로 분배 적재하는 자동화 설계" },
+            { name: "마이크로비트 심박수 수집 스마트 웨어러블 밴드", kits: ["마이크로비트 V2", "심박센서"], intro: "체육 시간 학생들의 실시간 활동 지수를 감지하여 권장 유산소 운동량을 벗어나면 소리로 알려 주는 헬스 스마트 밴드 코딩" },
+            { name: "메타버스 젭(ZEP) 기반 우리 교실 온라인 가상 캠퍼스", kits: ["ZEP", "맵에디터"], intro: "온라인 공간 속에 실제 학교 교실을 디자인하고, 자율 자습 및 친구들과 퀴즈 보드 대결을 펼치며 소통하는 배리어프리 교실 호스팅" },
+            { name: "엔트리 머신러닝 모델을 활용한 쓰레기 분리수거 함", kits: ["엔트리 AI", "서보모터"], intro: "카메라에 비치는 쓰레기 이미지가 플라스틱인지 캔인지 학습시켜, 캔을 비출 때만 서보모터 쓰레기 뚜껑이 열리는 에코 가젯" },
+            { name: "팅커캐드 3D 모델링 제로에너지 친환경 미래 주택", kits: ["Tinkercad 3D", "3D 프린팅"], intro: "건물의 단열 면적과 신재생 에너지 효율 앵글을 직접 3D 그래픽으로 치수 모델링한 후, 실물 3D 프린터로 외장재를 출력하는 공학" },
+            { name: "파이썬 기계 학습 기반 시세 동향 추종 시뮬레이터", kits: ["파이썬", "Scikit-Learn"], intro: "선형 회귀 인공지능 머신러닝 기본 코드를 활용해, 과거 데이터를 기반으로 미래 기상 수치나 수치를 가상 예측해보는 학습" },
+            { name: "핑퐁 로봇 축구 게임 제어기 코딩", kits: ["핑퐁 로봇", "자이로센서"], intro: "로봇 자이로 조종기를 수립하여 2:2 가상 필드 내에서 협동 로봇 축구 게임 대결을 치르며 복수 무선 신호의 연동 체계 마스터" },
+            { name: "아두이노 기반 실시간 기상 관측소(Weather Station)", kits: ["아두이노", "빗물센서", "LCD"], intro: "기압, 조도, 온도 및 빗물 감지 센서를 아웃도어 하우징에 이식해 실시간 기상 상태를 16x2 LCD 글판에 뿌려 주는 소형 예보 기기" },
+            { name: "코스페이시스 역사 도슨트 VR 갤러리", kits: ["CoSpaces Edu", "오디오 가이드"], intro: "역사 속 주요 보물 3D 입체 그래픽을 둘러보고, 작품 가까이 걸어가면 역사 배경 설명이 보이스로 재생되는 메타버스 갤러리 전시" },
+            { name: "생성형 AI 미드저니 프롬프트 SF 동화책 작가", kits: ["ChatGPT", "Midjourney"], intro: "올바른 생성형 인공지능 프롬프트 디자인 윤리를 배우고, 챗GPT의 전개 시나리오에 그림을 얹어 이북(E-Book)으로 제본하는 인문 기술 융합" }
+        ];
+
+        let selectedKit = 'all';
+
+        // Build Table rows dynamically
+        function buildTable() {
+            const tbody = document.getElementById('catalogBody');
+            tbody.innerHTML = ''; // Reset
+
+            programsDatabase.forEach(item => {
+                let kitTagsHTML = item.kits.map(k => `<span class="kit-tag">${k}</span>`).join('');
+                const row = `
+                    <tr class="program-row" data-kits='${JSON.stringify(item.kits)}'>
+                        <td class="td-name">${item.name}</td>
+                        <td class="td-kit">${kitTagsHTML}</td>
+                        <td class="td-intro">${item.intro}</td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+
+        // Search Input filter
+        function filterCatalog() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const rows = document.querySelectorAll('.program-row');
+            let hasVisible = false;
+
+            rows.forEach(row => {
+                const name = row.querySelector('.td-name').innerText.toLowerCase();
+                const intro = row.querySelector('.td-intro').innerText.toLowerCase();
+                const kits = JSON.parse(row.getAttribute('data-kits'));
+                
+                // Matches search keyword
+                const matchesQuery = name.includes(query) || intro.includes(query);
+                
+                // Matches selected kit chip filter
+                let matchesKit = false;
+                if (selectedKit === 'all') {
+                    matchesKit = true;
+                } else {
+                    matchesKit = kits.some(k => k.toLowerCase().includes(selectedKit.toLowerCase()));
+                }
+
+                if (matchesQuery && matchesKit) {
+                    row.style.display = 'table-row';
+                    hasVisible = true;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+
+            // Show empty msg if no match
+            const emptyMsg = document.getElementById('emptyMessage');
+            if (hasVisible) {
+                emptyMsg.style.display = 'none';
+                document.getElementById('catalogTable').style.display = 'table';
+            } else {
+                emptyMsg.style.display = 'block';
+                document.getElementById('catalogTable').style.display = 'none';
+            }
+        }
+
+        // Kit Chip filter
+        function filterByKit(kitName) {
+            selectedKit = kitName;
+            
+            // Toggle active status in chips
+            const chips = document.querySelectorAll('.chip');
+            chips.forEach(c => c.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            // Trigger filtering
+            filterCatalog();
+        }
+    </script>
+</body>
+</html>
