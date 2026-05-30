@@ -1,0 +1,1693 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>디지털 새싹 신규 교육 프로그램 개발 및 트렌드 제안서</title>
+    
+    <!-- Google Fonts & Tailwind-like CSS variables -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-color: #080B11;
+            --card-bg: rgba(17, 24, 39, 0.7);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --primary: #8B5CF6;
+            --primary-glow: rgba(139, 92, 246, 0.3);
+            --secondary: #06B6D4;
+            --secondary-glow: rgba(6, 182, 212, 0.3);
+            --accent: #F43F5E;
+            --accent-glow: rgba(244, 63, 94, 0.3);
+            --text-main: #F9FAFB;
+            --text-muted: #9CA3AF;
+            --text-dark: #4B5563;
+            --glass-bg: rgba(15, 23, 42, 0.45);
+            --font-main: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+            --font-eng: 'Outfit', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.08) 0%, transparent 40%);
+            background-attachment: fixed;
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0B0F19;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2D3748;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header & Hero Section */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(8, 11, 17, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--card-border);
+            padding: 1rem 0;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-eng);
+            font-weight: 800;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .badge-dev {
+            background: rgba(139, 92, 246, 0.15);
+            color: #C084FC;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .hero {
+            padding: 6rem 0 4rem 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            background: var(--primary-glow);
+            filter: blur(120px);
+            border-radius: 50%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
+            padding: 0.5rem 1.25rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+            backdrop-filter: blur(4px);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.03em;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, #06B6D4 0%, #8B5CF6 50%, #F43F5E 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 2.5rem auto;
+        }
+
+        /* Dashboard Overview Grid */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .overview-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 2rem;
+            backdrop-filter: blur(8px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .overview-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, transparent);
+            transition: all 0.3s;
+        }
+
+        .overview-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        .overview-card.purple:hover::before {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .overview-card.cyan:hover::before {
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+        }
+
+        .overview-card.rose:hover::before {
+            background: linear-gradient(90deg, var(--accent), var(--primary));
+        }
+
+        .overview-card .icon-box {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .overview-card.purple .icon-box {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--primary);
+        }
+
+        .overview-card.cyan .icon-box {
+            background: rgba(6, 182, 212, 0.1);
+            color: var(--secondary);
+        }
+
+        .overview-card.rose .icon-box {
+            background: rgba(244, 63, 94, 0.1);
+            color: var(--accent);
+        }
+
+        .overview-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .overview-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Filter Controls */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-title span {
+            background: linear-gradient(135deg, var(--text-main) 30%, var(--text-muted) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-title i {
+            color: var(--secondary);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-filter {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
+            color: var(--text-muted);
+            padding: 0.5rem 1.25rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .btn-filter:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-main);
+        }
+
+        .btn-filter.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px var(--primary-glow);
+        }
+
+        /* Programs Grid (15 analysis programs) */
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 5rem;
+        }
+
+        .program-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .program-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        .program-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .prog-id {
+            font-family: var(--font-eng);
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        .prog-tag {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.6rem;
+            border-radius: 6px;
+        }
+
+        .tag-ai {
+            background: rgba(139, 92, 246, 0.15);
+            color: #C084FC;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .tag-iot {
+            background: rgba(6, 182, 212, 0.15);
+            color: #22D3EE;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+        }
+
+        .tag-meta {
+            background: rgba(244, 63, 94, 0.15);
+            color: #FB7185;
+            border: 1px solid rgba(244, 63, 94, 0.3);
+        }
+
+        .program-card h4 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--text-main);
+        }
+
+        .program-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            flex-grow: 1;
+            margin-bottom: 1.25rem;
+        }
+
+        .program-meta {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .program-meta span i {
+            margin-right: 0.3rem;
+            color: var(--secondary);
+        }
+
+        /* Developed Programs (3 new programs) */
+        .developed-section {
+            background: rgba(15, 23, 42, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 24px;
+            padding: 3rem;
+            margin-bottom: 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .developed-section::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: var(--secondary-glow);
+            filter: blur(150px);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .dev-badge {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .dev-card-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+
+        .dev-card {
+            background: rgba(17, 24, 39, 0.85);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .dev-card:hover {
+            border-color: rgba(139, 92, 246, 0.4);
+            box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.6);
+        }
+
+        .dev-card-info {
+            padding: 2.5rem;
+            background: linear-gradient(135deg, rgba(20, 24, 33, 0.9) 0%, rgba(13, 16, 23, 0.9) 100%);
+            border-right: 1px solid var(--card-border);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .dev-card-desc {
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .dev-card-info h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+            background: linear-gradient(135deg, #FFF 60%, var(--text-muted) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .dev-specs {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin: 1.5rem 0;
+        }
+
+        .spec-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .spec-item i {
+            color: var(--secondary);
+            width: 20px;
+            text-align: center;
+        }
+
+        .spec-item strong {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        .dev-card-desc h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .dev-card-desc p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .core-outcomes {
+            margin-bottom: 1.5rem;
+        }
+
+        .core-outcomes ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+        }
+
+        .core-outcomes li {
+            font-size: 0.85rem;
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 0.5rem 0.75rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .core-outcomes li i {
+            color: #10B981;
+        }
+
+        .dev-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, #6D28D9 100%);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 14px var(--primary-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-main);
+            border: 1px solid var(--card-border);
+            padding: 0.75rem 1.25rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Modal & Timeline */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(4, 6, 10, 0.85);
+            backdrop-filter: blur(16px);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-container {
+            background: #0D111A;
+            border: 1px solid var(--card-border);
+            width: 90%;
+            max-width: 900px;
+            max-height: 85vh;
+            border-radius: 24px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            transform: scale(0.95);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .modal-overlay.active .modal-container {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--card-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(17, 24, 39, 0.5);
+        }
+
+        .modal-title h3 {
+            font-size: 1.35rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #FFF, var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .modal-title p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        .btn-close {
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            color: var(--text-muted);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-close:hover {
+            background: rgba(244, 63, 94, 0.2);
+            color: var(--accent);
+        }
+
+        .modal-content {
+            padding: 2rem;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        /* Timeline Graphics */
+        .timeline {
+            position: relative;
+            padding-left: 2.5rem;
+            margin: 1rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 11px;
+            top: 5px;
+            bottom: 5px;
+            width: 2px;
+            background: linear-gradient(180deg, var(--secondary) 0%, var(--primary) 50%, var(--accent) 100%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-badge {
+            position: absolute;
+            left: -2.5rem;
+            top: 2px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #0D111A;
+            border: 2px solid var(--secondary);
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            font-family: var(--font-eng);
+            transition: all 0.3s;
+            box-shadow: 0 0 10px rgba(6, 182, 212, 0.2);
+        }
+
+        .timeline-item:nth-child(even) .timeline-badge {
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.2);
+        }
+
+        .timeline-item:nth-child(3n) .timeline-badge {
+            border-color: var(--accent);
+            color: var(--accent);
+            box-shadow: 0 0 10px rgba(244, 63, 94, 0.2);
+        }
+
+        .timeline-content {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            transition: all 0.2s;
+        }
+
+        .timeline-content:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.08);
+            transform: translateX(4px);
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .timeline-phase {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+        }
+
+        .phase-intro {
+            color: #60A5FA;
+            background: rgba(96, 165, 250, 0.1);
+        }
+
+        .phase-core {
+            color: #FBBF24;
+            background: rgba(251, 191, 36, 0.1);
+        }
+
+        .phase-project {
+            color: #34D399;
+            background: rgba(52, 211, 153, 0.1);
+        }
+
+        .timeline-body {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        /* Strategy Section */
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 5rem;
+        }
+
+        .strategy-box {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            position: relative;
+        }
+
+        .strategy-box h3 {
+            font-size: 1.35rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .strategy-box h3 i {
+            color: var(--accent);
+        }
+
+        .strategy-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .strategy-item {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .strategy-number {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(244, 63, 94, 0.1);
+            color: var(--accent);
+            border: 1px solid rgba(244, 63, 94, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-family: var(--font-eng);
+            flex-shrink: 0;
+        }
+
+        .strategy-content h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .strategy-content p {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: rgba(17, 24, 39, 0.95);
+            border: 1px solid var(--secondary);
+            border-radius: 10px;
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 1100;
+        }
+
+        .toast.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast i {
+            color: var(--secondary);
+            font-size: 1.25rem;
+        }
+
+        .toast-content h4 {
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .toast-content p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        footer {
+            border-top: 1px solid var(--card-border);
+            padding: 3rem 0;
+            background: rgba(4, 6, 10, 0.9);
+            text-align: center;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .dev-card {
+                grid-template-columns: 1fr;
+            }
+            .dev-card-info {
+                border-right: none;
+                border-bottom: 1px solid var(--card-border);
+            }
+            .strategy-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.25rem;
+            }
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            .filter-buttons {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fa-solid fa-seedling"></i>
+                <span>NEW SAC PARTNER</span>
+            </div>
+            <div class="badge-dev">
+                <i class="fa-solid fa-graduation-cap"></i> 디지털 새싹 운영기관 제안 대시보드
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-tag">
+                <i class="fa-solid fa-circle-nodes"></i> 초·중·고 디지털 역량 강화 SW·AI 교육 솔루션
+            </div>
+            <h1>디지털 새싹 <span>교육 프로그램 개발 및 트렌드 제안</span></h1>
+            <p>디지털 새싹 누리집의 15개 핵심 교육 프로그램을 분석하고, 운영기관의 실제 기획서 제출 요건(PBL, 디지털 격차 해소, ESG 연계)을 충족하는 최고 등급 수준의 신규 교육과정 3종을 설계하였습니다.</p>
+            
+            <div class="overview-grid">
+                <div class="overview-card purple">
+                    <div class="icon-box"><i class="fa-solid fa-chart-line"></i></div>
+                    <h3>15대 기존 프로그램 분석</h3>
+                    <p>AI, IoT, 메타버스, 빅데이터 등 트렌드를 분석하여 교육 현장에 가장 유용한 핵심 도구와 교수법을 추출했습니다.</p>
+                </div>
+                <div class="overview-card cyan">
+                    <div class="icon-box"><i class="fa-solid fa-cubes"></i></div>
+                    <h3>독창적 3대 신규 프로그램</h3>
+                    <p>우주 과학 AI 로봇, IoT 기후 환경, 디지털 트윈 배리어 프리를 융합하여 국가 인재 양성 목표에 부합합니다.</p>
+                </div>
+                <div class="overview-card rose">
+                    <div class="icon-box"><i class="fa-solid fa-file-export"></i></div>
+                    <h3>실무 활용 12차시 기획서</h3>
+                    <p>차시별 디테일한 목표와 실습을 완벽하게 기재하였으며, 원클릭 복사 기능으로 제안서 작성을 즉시 지원합니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 1: 기존 15선 분석 -->
+        <section style="margin-bottom: 5rem;">
+            <div class="section-header">
+                <div class="section-title">
+                    <i class="fa-solid fa-magnifying-glass-chart"></i>
+                    <span>디지털 새싹 누리집 15대 프로그램 동향 분석</span>
+                </div>
+                <div class="filter-buttons">
+                    <button class="btn-filter active" onclick="filterPrograms('all')">ALL</button>
+                    <button class="btn-filter" onclick="filterPrograms('ai')">인공지능 & 데이터</button>
+                    <button class="btn-filter" onclick="filterPrograms('iot')">피지컬 컴퓨팅 & IoT</button>
+                    <button class="btn-filter" onclick="filterPrograms('meta')">메타버스 & 융합</button>
+                </div>
+            </div>
+
+            <div class="programs-grid" id="programsGrid">
+                <!-- AI 5개 -->
+                <div class="program-card" data-category="ai">
+                    <div class="program-card-header">
+                        <span class="prog-id">AI-01</span>
+                        <span class="prog-tag tag-ai">AI/머신러닝</span>
+                    </div>
+                    <h4>우리 동네 AI 보안관</h4>
+                    <p>티처블 머신과 엔트리(Entry)를 융합하여, CCTV 이미지 학습을 통해 쓰레기 무단 투기나 무단 횡단을 감지하고 시각 경보를 울리는 실생활 연계 실습.</p>
+                    <div class="program-meta">
+                        <span><i class="fa-solid fa-puzzle-piece"></i> 엔트리, AI 카메라</span>
+                        <span>초등 고학년</span>
+                    </div>
+                </div>
+
+                <div class="program-card" data-category="ai">
+                    <div class="program-card-header">
+                        <span class="prog-id">AI-02</span>
+                        <span class="prog-tag tag-ai">데이터과학</span>
+                    </div>
+                    <h4>파이썬 데이터 랩: 기후 위기 분석</h4>
+                    <p>공공 날씨 및 대기 오염 데이터를 기반으로 파이썬 라이브러리(Pandas, Matplotlib)를 활용해 지구 온난화 추세를 차트로 예측 및 분석하는 과정.</p>
+                    <div class="program-meta">
+                        <span><i class="fa-solid fa-code"></i> Python, Pandas</span>
+                        <span>고등학생</span>
+                    </div>
+                </div>
+
+                <div class="program-card" data-category="ai">
+                    <div class="program-card-header">
+                        <span class="prog-id">AI-03</span>
+                        <span class="prog-tag tag-ai">생성형 AI</span>
+                    </div>
+                    <h4>생성형 AI와 함께하는 SF 작가</h4>
+                    <p>ChatGPT 및 Midjourney 등 최신 프롬프트 엔지니어링 기법을 올바르게 이해하고, 자신만의 독창적인 메타버스를 담은 디지털 동화책 제작.</p>
+                    <div class="program-meta">
+                        <span><i class="fa-solid fa-robot"></i> LLM, Image Gen</span>
+                        <span>중·고등학생</span>
+                    </div>
+                </div>
+
+                <div class="program-card" data-category="ai">
+                    <div class="program-card-header">
+                        <span class="prog-id">AI-04</span>
+                        <span class="prog-tag tag-ai">AI/공장</span>
+                    </div>
+                    <h4>AI 딥러닝 스마트 팩토리</h4>
+                    <p>초소형 카메라 모듈과 기계 학습을 활용해 컨베이어 벨트 위의 제품 불량 여부를 즉각 판단하고 분배하는 소형 AI 공장 자동화 실습.</p>
+                    <div class="program-meta">
+                        <span><i class="fa-solid fa-gears"></i> 머신러닝, 컨베이어</span>
+                        <span>중·고등학생</span>
+                    </div>
+                </div>
+
+                <div class="program-card" data-category="ai">
+                    <div class="program-card-header">
+                        <span class="prog-id">AI-05</span>
+                        <span class="prog-tag tag-ai">AI 챗봇</span>
+                    </div>
+                    <h4>우리 학교 감정 케어 도우미</h4>
+                    <p>Dialogflow를 활용하여 친구들의 고민을 경청하고 대화를 제공하는 공감형 AI 챗봇을 기획하여 청소년 심리 안정 및 올바른 AI 활용성 함양.</p>
+                    <div class="program-meta">
+                        <span><i class="fa-regular fa-comment-dots"></i> Dialogflow, NLP</span>
+                        <span>초등 고학년~중</span>
+                    </div>
+                </div>
+
+                <!-- IoT 5개 -->
+                <div class="program-card" data-category="iot">
+                    <div class="program-card-header">
+                        <span class="prog-id">IoT-06</span>
+                        <span class="prog-tag tag-iot">피지컬 컴퓨팅</span>
+                    </div>
+                    <h4>스마트 그린시티 온 메이커</h4>
+                    <p>마이크로비트 V2 환경 센서 세트를 이용하여 온도, 소음, 미세먼지 수치에 따라 가로등과 환풍기 댐퍼를 동적으로 여닫는 친환경 그린 스마트 타운 구축.</p>
+                    <div class="program-meta">
+                        <span><i class="fa-solid fa-microchip"></i> 마이크로비트, 센서</span>
+                        <span>초등 고학년</span>
+                    </div>
+                </div>
+
+                <div class="program-card" data-category="iot">
+                    <div class="program-card-header">
+                        <span class="prog-id">IoT-07</span>
+                        <span class="prog-tag tag-iot">웨어러블</span>
+                    </div>
+                    <h4>아두이노 헬스케어 웨어러블</h4>
+                    <p>심박수, 체온, 모션 자이로 센서를 하네스와 결합하여 청소년의 실시간 운동량과 보행 자세를 교정해주는 나만의 맞춤형 밴드 제작 프로젝트.</p>
+                    <div class="program-meta">
+                        <span><i class="fa-solid fa-heart-pulse"></i> 아두이노 Nano, 센서</span>
+                        <span>중·고등학생</span>
+                    </div>
+                </div>
+
+                <div class="program-card" data-category="iot">
+                    <div class="program-card-header">
+                        <span class="prog-id">IoT-08</span>
+                        <span class="prog-tag tag-iot">시뮬레이션</span>
+                    </div>
+                    <h4>팅커캐드 스마트 그리드 설계</h4>
+                    <p>팅커캐드 시뮬레이터를 이용하여 회로 설계 오류 리스크를 미연에 차단하고, 태양광 발전 패널에서 에너지를 효율적으로 흐르게 하는 지능형 배전 그리드 실습.</p>
+                    <div class="program-meta">
+                        <span><i class="fa-solid fa-bolt"></i> Tinkercad Circuits</span>
+                        <span>초등 고학년~중</span>
+                    </div>
+                </div>
+
+                <div class="program-card" data-category="iot">
+                    <div class="program-card-header">
+                        <span class="prog-id">IoT-09</span>
+                        <span class="prog-tag tag-iot">라즈베리파이</span>
+                    </div>
+                    <h4>라즈베리파이 연동 홈 CCTV</h4>
+                    <p>초소형 싱글 보드 컴퓨터에 운영체제를 설치하고, OpenCV 얼굴 인식 코드를 접목하여 침입자가 있을 시 Telegram 앱으로 즉각 알림을 보내는 안심 지킴이.</p>
+                    <div class="program-meta">
+                        <span><i class="fa-brands fa-raspberry-pi"></i> Raspberry Pi, OS</span>
+                        <span>고등학생</span>
+                    </div>
+                </div>
+
+                <div class="program-card" data-category="iot">
+                    <div class="program-card-header">
+                        <span class="prog-id">IoT-10</span>
+                        <span class="prog-tag tag-iot">로보틱스</span>
+                    </div>
+                    <h4>핑퐁 로봇 자율주행 배송기</h4>
+                    <p>모듈형 핑퐁 로봇에 적외선 및 가속도 센서를 연결하고, 장애물을 감지하여 모듈 속도를 동적으로 연동시킴으로써 목적지까지 화물을 전달하는 배송 시스템.</p>
+                    <div class="program-meta">
+                        <span><i class="fa-solid fa-truck-ramp-box"></i> 핑퐁로봇, 모터제어</span>
+                        <span>초등 전학년</span>
+                    </div>
+                </div>
+
+                <!-- Meta/융합 5개 -->
+                <div class="program-card" data-category="meta">
+                    <div class="program-card-header">
+                        <span class="prog-id">MET-11</span>
+                        <span class="prog-tag tag-meta">VR 박물관</span>
+                    </div>
+                    <h4>CoSpaces 역사 박물관 도슨트</h4>
+                    <p>CoSpaces Edu를 활용해 가상 현실 속에 역사 박물관을 건축하고, 3D 오브젝트를 클릭 시 음성과 이미지 팝업으로 상세 설명을 출력하는 가상 도슨트 코딩.</p>
+                    <div class="program-meta">
+                        <span><i class="fa-solid fa-vr-cardboard"></i> CoSpaces, CoBlocks</span>
+                        <span>초등 고학년~중</span>
+                    </div>
+                </div>
+
+                <div class="program-card" data-category="meta">
+                    <div class="program-card-header">
+                        <span class="prog-id">MET-12</span>
+                        <span class="prog-tag tag-meta">메타버스 안전</span>
+                    </div>
+                    <h4>로블록스 재난 대피 시뮬레이터</h4>
+                    <p>로블록스 스튜디오로 화재나 지진 등 가상 재난 위험 구역 맵을 직접 제작하고, Lua 스크립트로 신속 대피 유도 통로 점등 및 생존 스위치를 배치하는 설계 교육.</p>
+                    <div class="program-meta">
+                        <span><i class="fa-solid fa-gamepad"></i> Roblox, Lua Script</span>
+                        <span>중·고등학생</span>
+                    </div>
+                </div>
+
+                <div class="program-card" data-category="meta">
+                    <div class="program-card-header">
+                        <span class="prog-id">MET-13</span>
+                        <span class="prog-tag tag-meta">3D 모델링</span>
+                    </div>
+                    <h4>디지털 트윈 제로에너지 빌딩</h4>
+                    <p>컴퓨터 3D 설계 툴(팅커캐드)로 스마트 구조 건축물을 모델링하고, 탄소중립 기준을 충족하는 벽면 녹화 및 태양 전지 앵글을 설계하여 직접 3D 프린팅.</p>
+                    <div class="program-meta">
+                        <span><i class="fa-solid fa-compass-drafting"></i> 3D 프린팅, Tinkercad</span>
+                        <span>중·고등학생</span>
+                    </div>
+                </div>
+
+                <div class="program-card" data-category="meta">
+                    <div class="program-card-header">
+                        <span class="prog-id">MET-14</span>
+                        <span class="prog-tag tag-meta">블록체인</span>
+                    </div>
+                    <h4>청소년 NFT 아트 크리에이터</h4>
+                    <p>웹3.0 시대의 핵심 인프라인 블록체인과 스마트 콘트랙트 개념을 쉽게 배우고, 직접 픽셀 도트로 창작한 작품의 유일성(NFT)을 보존해보는 체험형 예술 융합.</p>
+                    <div class="program-meta">
+                        <span><i class="fa-solid fa-wallet"></i> Web3, 블록체인 입문</span>
+                        <span>중·고등학생</span>
+                    </div>
+                </div>
+
+                <div class="program-card" data-category="meta">
+                    <div class="program-card-header">
+                        <span class="prog-id">MET-15</span>
+                        <span class="prog-tag tag-meta">웹 퍼블리싱</span>
+                    </div>
+                    <h4>우리 동네 활성화 캠페인 웹</h4>
+                    <p>HTML5, CSS3의 기초를 익혀 복잡한 환경 설정 없이도 나만의 지역 상인 홍보 페이지나 기후 대책 촉구 원페이지 반응형 웹 랜딩 페이지를 손수 제작하는 과정.</p>
+                    <div class="program-meta">
+                        <span><i class="fa-solid fa-window-restore"></i> HTML, CSS, JS</span>
+                        <span>중·고등학생</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Section 2: 신규 개발 프로그램 3종 -->
+        <section class="developed-section">
+            <div style="text-align: center; margin-bottom: 3rem;">
+                <span class="dev-badge"><i class="fa-solid fa-sparkles"></i> 2026 NEW PROPOSAL</span>
+                <h2 style="font-size: 2.25rem; font-weight: 800; letter-spacing: -0.02em;">신규 디지털 새싹 교육 프로그램 개발 (3종)</h2>
+                <p style="color: var(--text-muted); max-width: 800px; margin: 1rem auto 0 auto; font-size: 1.05rem;">
+                    기존 프로그램 분석을 기반으로, <strong>미래지향적 스토리텔링, 첨단 융합 센서 실습, 사회 문제 해결</strong>을 결합한 12차시 핵심 기획서입니다. 운영기관 제안 시 심사관들의 시선을 사로잡을 수 있는 완성도를 보증합니다.
+                </p>
+            </div>
+
+            <div class="dev-card-wrapper">
+                <!-- Program 1 -->
+                <div class="dev-card" id="devCard1">
+                    <div class="dev-card-info">
+                        <div>
+                            <span class="prog-tag tag-ai" style="margin-bottom: 0.5rem; display: inline-block;">AI 융합 & 피지컬 컴퓨팅</span>
+                            <h3>AI 스페이스 엑스퍼트<br><span style="font-size: 1.1rem; color: var(--secondary);">인공지능과 우주 탐사 로봇 프로젝트</span></h3>
+                        </div>
+                        <div class="dev-specs">
+                            <div class="spec-item">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                                <span>대상 : <strong>중·고등학생 (초급~중급)</strong></span>
+                            </div>
+                            <div class="spec-item">
+                                <i class="fa-solid fa-screwdriver-wrench"></i>
+                                <span>교구 : <strong>아두이노(ESP32-CAM), 모터, 파이썬</strong></span>
+                            </div>
+                            <div class="spec-item">
+                                <i class="fa-solid fa-clock"></i>
+                                <span>교육 차시 : <strong>총 12차시 (차시당 45분/100분 설계 가능)</strong></span>
+                            </div>
+                        </div>
+                        <div class="dev-actions">
+                            <button class="btn-primary" onclick="openCurriculum(1)">
+                                <i class="fa-solid fa-list-check"></i> 12차시 커리큘럼 보기
+                            </button>
+                            <button class="btn-secondary" onclick="copyCurriculum(1)">
+                                <i class="fa-regular fa-copy"></i> 복사
+                            </button>
+                        </div>
+                    </div>
+                    <div class="dev-card-desc">
+                        <div>
+                            <h4><i class="fa-solid fa-rocket"></i> 프로그램 컨셉 & 개요</h4>
+                            <p>화성 이주 및 미지의 행성 개척 스토리를 바탕으로 탐사 로봇(Mars Rover)을 구축하는 첨단 융합형 프로그램입니다. 아두이노 기반 하드웨어 지식에 파이썬 프로그래밍과 OpenCV 인공지능 영상 판별 기술을 얹어, 모의 행성 매트 위에서 자율 탐사를 완료해 나가는 몰입형 PBL을 설계하였습니다.</p>
+                            
+                            <h4><i class="fa-solid fa-star"></i> 핵심 기대 효과</h4>
+                            <div class="core-outcomes">
+                                <ul>
+                                    <li><i class="fa-solid fa-check"></i> 센서-하드웨어-소프트웨어 통합 제어력</li>
+                                    <li><i class="fa-solid fa-check"></i> 파이썬 기초 코딩 및 AI 컴퓨터 비전 이해</li>
+                                    <li><i class="fa-solid fa-check"></i> 미션 해결 과정에서의 협동 및 메이커 소양</li>
+                                    <li><i class="fa-solid fa-check"></i> 미래 항공우주 진로 탐색 동기 부여</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div style="font-size: 0.85rem; color: var(--text-muted); border-top: 1px solid var(--card-border); padding-top: 1rem; display: flex; justify-content: space-between;">
+                            <span>키워드: #우주과학 #인공지능 #파이썬 #자율주행</span>
+                            <span style="color: var(--accent);"><i class="fa-solid fa-fire"></i> 우수 기획 추천</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Program 2 -->
+                <div class="dev-card" id="devCard2">
+                    <div class="dev-card-info">
+                        <div>
+                            <span class="prog-tag tag-iot" style="margin-bottom: 0.5rem; display: inline-block;">IoT & 데이터 사이언스</span>
+                            <h3>에코 스마트 가디언<br><span style="font-size: 1.1rem; color: var(--secondary);">IoT & 빅데이터 기반 지구 환경 수호대</span></h3>
+                        </div>
+                        <div class="dev-specs">
+                            <div class="spec-item">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                                <span>대상 : <strong>초등 고학년 ~ 중학생 (초급)</strong></span>
+                            </div>
+                            <div class="spec-item">
+                                <i class="fa-solid fa-screwdriver-wrench"></i>
+                                <span>교구 : <strong>마이크로비트 V2, 미세먼지 센서, 엔트리</strong></span>
+                            </div>
+                            <div class="spec-item">
+                                <i class="fa-solid fa-clock"></i>
+                                <span>교육 차시 : <strong>총 12차시 (초등 블록 코딩 특화)</strong></span>
+                            </div>
+                        </div>
+                        <div class="dev-actions">
+                            <button class="btn-primary" onclick="openCurriculum(2)">
+                                <i class="fa-solid fa-list-check"></i> 12차시 커리큘럼 보기
+                            </button>
+                            <button class="btn-secondary" onclick="copyCurriculum(2)">
+                                <i class="fa-regular fa-copy"></i> 복사
+                            </button>
+                        </div>
+                    </div>
+                    <div class="dev-card-desc">
+                        <div>
+                            <h4><i class="fa-solid fa-leaf"></i> 프로그램 컨셉 & 개요</h4>
+                            <p>기후 변화와 지구 환경 위기라는 시대적 가치를 디지털 기술로 풀어나가는 실천 중심형 프로그램입니다. 학생들은 교실, 화단 등 실제 생활 속 환경 요소(미세먼지, 소음, 습도)를 IoT 교구로 실시간 수집하고, 엔트리 데이터 분석 도구로 분석 및 시각화한 후, 탄소 배출을 억제할 수 있는 나만의 '에코 가디언 발명품'을 직접 메이킹합니다.</p>
+                            
+                            <h4><i class="fa-solid fa-star"></i> 핵심 기대 효과</h4>
+                            <div class="core-outcomes">
+                                <ul>
+                                    <li><i class="fa-solid fa-check"></i> 친환경 가치 중심의 SDGs/ESG 융합 사고</li>
+                                    <li><i class="fa-solid fa-check"></i> 기후 모니터링 데이터 분석 및 시각화 능력</li>
+                                    <li><i class="fa-solid fa-check"></i> 마이크로비트 활용 및 엔트리 블록 코딩 마스터</li>
+                                    <li><i class="fa-solid fa-check"></i> 생활용품 재활용품 연계 창의 메이커십</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div style="font-size: 0.85rem; color: var(--text-muted); border-top: 1px solid var(--card-border); padding-top: 1rem; display: flex; justify-content: space-between;">
+                            <span>키워드: #ESG #빅데이터 #마이크로비트 #메이커스</span>
+                            <span style="color: var(--secondary);"><i class="fa-solid fa-heart"></i> 사회공헌 연계</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Program 3 -->
+                <div class="dev-card" id="devCard3">
+                    <div class="dev-card-info">
+                        <div>
+                            <span class="prog-tag tag-meta" style="margin-bottom: 0.5rem; display: inline-block;">메타버스 & 배리어 프리</span>
+                            <h3>넥스트 버추얼 빌더<br><span style="font-size: 1.1rem; color: var(--secondary);">메타버스와 디지털 트윈 배리어 프리 스쿨</span></h3>
+                        </div>
+                        <div class="dev-specs">
+                            <div class="spec-item">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                                <span>대상 : <strong>초등 고학년 ~ 고등학생 (초급~중급)</strong></span>
+                            </div>
+                            <div class="spec-item">
+                                <i class="fa-solid fa-screwdriver-wrench"></i>
+                                <span>교구 : <strong>CoSpaces Edu / Roblox Studio, VR 카드보드</strong></span>
+                            </div>
+                            <div class="spec-item">
+                                <i class="fa-solid fa-clock"></i>
+                                <span>교육 차시 : <strong>총 12차시 (공간 및 UI/UX 융합)</strong></span>
+                            </div>
+                        </div>
+                        <div class="dev-actions">
+                            <button class="btn-primary" onclick="openCurriculum(3)">
+                                <i class="fa-solid fa-list-check"></i> 12차시 커리큘럼 보기
+                            </button>
+                            <button class="btn-secondary" onclick="copyCurriculum(3)">
+                                <i class="fa-regular fa-copy"></i> 복사
+                            </button>
+                        </div>
+                    </div>
+                    <div class="dev-card-desc">
+                        <div>
+                            <h4><i class="fa-solid fa-wheelchair"></i> 프로그램 컨셉 & 개요</h4>
+                            <p>실제 학생들이 생활하는 물리 공간인 '우리 학교'를 스마트 3D 메타버스로 복제(디지털 트윈)한 뒤, 장애인이나 노약자, 다문화 학생이 겪을 수 있는 장벽을 제거하는 '배리어 프리(Barrier-Free)' 테마 공간을 재구성하는 유니버설 디자인 코딩 과정입니다. 휠체어 눈높이 카메라 뷰어 코딩, 시각장애인용 센서 스피커 배치 등을 직접 코블록스나 Lua 스크립트로 구현합니다.</p>
+                            
+                            <h4><i class="fa-solid fa-star"></i> 핵심 기대 효과</h4>
+                            <div class="core-outcomes">
+                                <ul>
+                                    <li><i class="fa-solid fa-check"></i> 약자 동행 및 디지털 시민성 가치 내재화</li>
+                                    <li><i class="fa-solid fa-check"></i> 메타버스 디지털 트윈 및 3D 모델링 스킬</li>
+                                    <li><i class="fa-solid fa-check"></i> 인터랙션 트리거 코딩 및 UX 관점의 분석력</li>
+                                    <li><i class="fa-solid fa-check"></i> 가상 현실 기기(VR) 체험을 통한 메타버스 리터러시</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div style="font-size: 0.85rem; color: var(--text-muted); border-top: 1px solid var(--card-border); padding-top: 1rem; display: flex; justify-content: space-between;">
+                            <span>키워드: #배리어프리 #디지털트윈 #CoSpaces #로블록스</span>
+                            <span style="color: #10B981;"><i class="fa-solid fa-award"></i> 교육청 추천 유형</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: 기획 전략 및 가이드 -->
+        <section class="strategy-grid">
+            <div class="strategy-box">
+                <h3><i class="fa-solid fa-lightbulb"></i> 디지털 새싹 제안서 작성 전략 및 팁</h3>
+                <div class="strategy-list">
+                    <div class="strategy-item">
+                        <div class="strategy-number">1</div>
+                        <div class="strategy-content">
+                            <h4>PBL(프로젝트 기반 학습)의 명확성</h4>
+                            <p>단순한 도구 조작 학습은 심사에서 배제됩니다. '미지 행성 탐사', '기후 변화 극복', '장애 없는 학교 만들기' 등 학생들이 해결해야 할 명확한 현실적 도전 과제(Challenge)와 스토리텔링을 얹어야 합니다.</p>
+                        </div>
+                    </div>
+                    <div class="strategy-item">
+                        <div class="strategy-number">2</div>
+                        <div class="strategy-content">
+                            <h4>디지털 격차 해소와 보편성</h4>
+                            <p>도서 산간 학생, 다문화 가정, 특수 학교 등 디지털 소외 계층을 위해 하드웨어 요구 사양을 낮추고, 텍스트 프로그래밍이 어려울 시 블록 코딩(엔트리, 메이크코드) 대안을 선제시하여 점수를 확보해야 합니다.</p>
+                        </div>
+                    </div>
+                    <div class="strategy-item">
+                        <div class="strategy-number">3</div>
+                        <div class="strategy-content">
+                            <h4>정량적/정성적 기대 효과 입증</h4>
+                            <p>학생들이 만든 결과물을 '최종 발표회(해커톤)' 및 가상 전시관(메타버스 맵)에 호스팅하여 학교 교사 및 학부모도 언제든 관람할 수 있게 설계하는 산출물 보존 전략을 어필해야 가산점을 받습니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="strategy-box" style="border-color: rgba(6, 182, 212, 0.2);">
+                <h3 style="color: var(--secondary);"><i class="fa-solid fa-circle-info"></i> 운영기관 교육 프로그램 표준 요건</h3>
+                <div class="strategy-list" style="margin-top: 1rem;">
+                    <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.7;">
+                        디지털 새싹(Digital Saessak)은 <strong>초·중·고등학생에게 수준별 맞춤형 SW·AI 프로그램</strong>을 제공해 디지털 격차를 해소하고, 컴퓨팅 사고력(CT) 및 문제 해결력을 키워주는 사업입니다.
+                    </p>
+                    <div style="background: rgba(6, 182, 212, 0.03); border: 1px dashed rgba(6, 182, 212, 0.2); padding: 1.25rem; border-radius: 12px;">
+                        <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.85rem;">
+                            <li><i class="fa-solid fa-chevron-right" style="color: var(--secondary); margin-right: 0.5rem;"></i> <strong>차시 구성:</strong> 통상 8차시~12차시 이상 (본 제안은 12차시 풀 커리큘럼 기준)</li>
+                            <li><i class="fa-solid fa-chevron-right" style="color: var(--secondary); margin-right: 0.5rem;"></i> <strong>강사진 구성:</strong> 주강사 1명 및 보조강사 1명 배치가 핵심 요건</li>
+                            <li><i class="fa-solid fa-chevron-right" style="color: var(--secondary); margin-right: 0.5rem;"></i> <strong>프로그램 관리:</strong> 출석부 관리, 사전/사후 핵심 역량 설문조사 필수 포함</li>
+                            <li><i class="fa-solid fa-chevron-right" style="color: var(--secondary); margin-right: 0.5rem;"></i> <strong>기반 시설:</strong> 태블릿PC, 크롬북 혹은 학교 컴퓨터실 사양과의 호환성 입증 필요</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Modal for 12차시 커리큘럼 -->
+    <div class="modal-overlay" id="curriculumModal" onclick="closeModalOutside(event)">
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <h3 id="modalProgramTitle">교육 프로그램 상세 12차시</h3>
+                    <p id="modalProgramSubtitle">세부 교육 구성안 및 실습 도구</p>
+                </div>
+                <button class="btn-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-content">
+                <div class="timeline" id="timelineContainer">
+                    <!-- Dynamic timeline items will go here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fa-solid fa-circle-check"></i>
+        <div class="toast-content">
+            <h4>기획서 텍스트 복사 완료!</h4>
+            <p>클립보드에 마크다운 기획안이 복사되었습니다.</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 디지털 새싹 신규 운영기관 파트너 프로그램 개발 제안서.</p>
+            <p style="font-size: 0.75rem; color: var(--text-dark);">본 대시보드는 디지털 새싹 최신 가이드라인에 맞춘 HTML/CSS/JS 단일 템플릿입니다.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Filter functionality for Section 1
+        function filterPrograms(category) {
+            // Update active state in filter buttons
+            const buttons = document.querySelectorAll('.btn-filter');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            // Filter cards
+            const cards = document.querySelectorAll('.program-card');
+            cards.forEach(card => {
+                if (category === 'all') {
+                    card.style.display = 'flex';
+                } else {
+                    if (card.getAttribute('data-category') === category) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                }
+            });
+        }
+
+        // Program Data
+        const curriculumData = {
+            1: {
+                title: "AI 스페이스 엑스퍼트",
+                subtitle: "인공지능과 우주 탐사 로봇 프로젝트 [중·고등 과정]",
+                markdown: `### [디지털 새싹 교육 프로그램 기획서]
+■ 프로그램명: AI 스페이스 엑스퍼트: 인공지능과 우주 탐사 로봇 프로젝트
+■ 교육대상: 중·고등학생
+■ 핵심도구: 아두이노(ESP32-CAM), 우주 탐사선 모형, 파이썬(Python)
+■ 기대효과: 임베디드 코딩, AI 컴퓨터비전 융합 역량 강화
+
+[12차시 세부 커리큘럼]
+- 1차시: 우주 탐사 시대와 인공지능의 역할 (화성 탐사 사례 분석 및 AI 연계성 토의)
+- 2차시: 탐사선 시스템 설계 및 조립 (모형 탐사 차량 프레임 및 컨트롤러 장착)
+- 3차시: 파이썬 & 아두이노 통신 기초 (시리얼 및 Wi-Fi 무선 영상 스트리밍 연결)
+- 4차시: 행성 표면 센싱 기술 (토양 수분 센서, 가속도 센서 값을 그래프로 시각화)
+- 5차시: 장애물 회피 자율주행 알고리즘 (초음파 센서와 모터 연동 자율 제어 설계)
+- 6차시: 컴퓨터 비전과 실시간 영상 분석 (ESP32-CAM 영상을 활용한 OpenCV 화면 검출)
+- 7차시: 딥러닝 기반 행성 장애물 분류 (티처블머신 활용 '암석', '웅덩이', '안전지대' 이미지 학습)
+- 8차시: AI 분류 모델과 로버 하드웨어 연동 (장애물 종류에 따른 탐사선 주행 모드 자동 제어)
+- 9차시: 자동 리턴 및 조난 방지 시스템 (자이로 센서 데이터 기반 주행 탈출 및 역행 궤도 복귀)
+- 10차시: 미션 시나리오 기획 및 문제 정의 (모둠별 탐사 조난자 구출 혹은 자원 캐기 전략 기획)
+- 11차시: 모의 행성 탐사 해커톤 (모형 화성 지형 매트 위에서 완성된 AI 자율주행으로 미션 수행)
+- 12차시: NASA 스타일 쇼케이스 및 종합 평가 (탐사 데이터 로그 기반 최종 프레젠테이션 및 시상)`,
+                timeline: [
+                    { id: 1, title: "우주 탐사 시대와 인공지능의 역할", phase: "도입 및 기초", body: "미래 화성 탐사 트렌드와 우주 산업 사례 분석. 탐사선(Mars Rover)이 자율주행과 AI를 사용할 수밖에 없는 이유를 찾고 토론합니다." },
+                    { id: 2, title: "탐사선 시스템 설계 및 조립", phase: "도입 및 기초", body: "아두이노 브레드보드 회로 구성 및 무선 영상 전송이 가능한 ESP32-CAM 모듈을 차량형 프레임에 견고하게 조립합니다." },
+                    { id: 3, title: "파이썬 & 아두이노 통신 기초", phase: "도입 및 기초", body: "파이썬 개발 환경을 구축하고, PC(관제소)와 탐사선(하드웨어) 간의 시리얼 통신 및 Wi-Fi 프로토콜 통신 코드를 분석하고 테스트합니다." },
+                    { id: 4, title: "행성 표면 센싱 기술 (데이터 획득)", phase: "실습 및 심화", body: "지구와 다른 행성의 환경 조건을 모방합니다. 토양 수분 센서, 가속도 센서를 연결하여 들어오는 센서 데이터를 그래프로 파이썬에 띄웁니다." },
+                    { id: 5, title: "장애물 회피 자율주행 알고리즘", phase: "실습 및 심화", body: "초음파 센서와 모터를 제어합니다. 탐사선 주행 중에 미지의 기물이나 암석에 가까워지면 즉시 제동하거나 우회하는 경로 로직을 짭니다." },
+                    { id: 6, title: "컴퓨터 비전과 실시간 스트리밍", phase: "실습 및 심화", body: "ESP32-CAM의 렌즈를 통해 보이는 가상 행성의 영상 스트리밍을 파이썬 화면 상에 실시간으로 프레임 단위로 수집합니다." },
+                    { id: 7, title: "딥러닝 기반 행성 장애물 분류", phase: "실습 및 심화", body: "Teachable Machine 및 OpenCV를 활용하여, 행성 위에 산재한 '유해 광물', '분화구', '정상 루트'의 이미지를 클래스로 분류하여 AI 모델을 훈련시킵니다." },
+                    { id: 8, title: "AI 분류 모델과 로버 하드웨어 연동", phase: "융합 및 프로젝트", body: "앞서 웹브라우저/서버에서 훈련시킨 파일(학습 모델)과 아두이노 차량 제어를 연결합니다. 위협 물체를 식별하면 정지하고, 정상 루트는 통과합니다." },
+                    { id: 9, title: "자동 리턴 및 조난 방지 시스템", phase: "융합 및 프로젝트", body: "자이로 가속도 센서를 더하여, 통신 수신 불량 혹은 탐사선이 전복 위험에 처했을 때 직전 3초 동안의 주행 궤적을 복사하여 안전한 곳으로 자동 후진하는 이중 안전 로직 코딩." },
+                    { id: 10, title: "미션 시나리오 기획 및 문제 정의", phase: "융합 및 프로젝트", body: "조별로 역할을 분담합니다. '구조선 연료 공급 미션', '토양 표본 분석 미션' 등 각 팀별 도전 시나리오를 수립하고 주행 지도를 작성합니다." },
+                    { id: 11, title: "행성 탐사 해커톤 (최종 실습)", phase: "최종 발표", body: "모의 화성 지도 매트 위해 제작한 AI 차량을 정렬시키고, 센서 연동과 영상 처리 자율 주행을 조합하여 기획한 시나리오 미션을 직접 격파하는 해커톤을 치릅니다." },
+                    { id: 12, title: "NASA 스타일 쇼케이스 및 평가", phase: "최종 발표", body: "획득한 데이터 로그 파일과 탐사 성공 경로 및 애로사항 해결 보고서를 샌드위치 프레젠테이션하고, 동료 평가와 지도 교사 평가를 종합해 미래 탐사 인증서를 배포합니다." }
+                ]
+            },
+            2: {
+                title: "에코 스마트 가디언",
+                subtitle: "IoT & 빅데이터 기반 지구 환경 수호대 [초등 고학년~중학 과정]",
+                markdown: `### [디지털 새싹 교육 프로그램 기획서]
+■ 프로그램명: 에코 스마트 가디언: IoT & 빅데이터 환경 수호대
+■ 교육대상: 초등 고학년 ~ 중학생
+■ 핵심도구: 마이크로비트 V2, 미세먼지 및 습도 센서, 엔트리(Entry) 데이터 코딩
+■ 기대효과: SDGs 환경 리터러시 함양, 실생활 데이터 분석 중심 창의 융합
+
+[12차시 세부 커리큘럼]
+- 1차시: 지구의 SOS와 환경 모니터링 (기후 변화 심각성 공감, 데이터의 필요성 학습)
+- 2차시: 마이크로비트 V2 센서 마스터 (자체 온도, 소리, 밝기 센서 값을 LED 화면에 출력하기)
+- 3차시: 확장 환경 센서 날개를 달다! (미세먼지 센서, 토양 습도 센서를 추가하여 측정 물리값 확장)
+- 4차시: 엔트리로 그리는 실시간 대시보드 (마이크로비트 무선 연결, 미세먼지 수치를 엔트리 게이지로 표출)
+- 5차시: 에코 데이터 저장소 구축 (화단, 교실, 강당 등 다양한 장소의 수치를 CSV 스프레드시트로 수집 및 저장)
+- 6차시: 빅데이터로 그리는 우리 학교 환경 지도 (엔트리 데이터 통계 도구를 활용해 학교 오염 지도 제작 및 요인 분석)
+- 7차시: 자동 에코 리액터 기획 (미세먼지 경고 시 환기팬 돌리기, 건조 시 LED 신호등 표시 등 조건문 코딩)
+- 8차시: 리사이클 가전 메이커 (버려진 친환경 페트병, 종이팩을 이용하여 스마트 IoT 외부 케이스 하우징 조립)
+- 9차시: 스마트 그린 스페이스 코딩 (하드웨어 케이싱 및 모듈 간 연결 디버깅 및 한계값 세부 제어)
+- 10차시: 에코 가디언 프로토타입 완성 (스마트 빗물 저금통, 친환경 화초 알리미, 미세먼지 창문 개폐 시스템 조립 완료)
+- 11차시: 에코 아이디어 경진대회 및 시연 (제작한 친환경 기기 성능 작동과 팀별 모니터링 프로그램 가동 실사)
+- 12차시: 환경 수호대 선언 및 평가 (지속가능발전 기여도 점검 및 환경 배지 수여식)`,
+                timeline: [
+                    { id: 1, title: "지구의 SOS와 환경 모니터링", phase: "도입 및 기초", body: "지구 온난화와 기후 변화 위기에 공감합니다. SDGs(지속가능개발목표)를 탐구하고 과학적 접근(데이터 수집)의 필연성을 이해합니다." },
+                    { id: 2, title: "마이크로비트 V2 센서 마스터", phase: "도입 및 기초", body: "마이크로비트의 작동 방식과 메이크코드 블록 코딩 기초. 내장된 가속도, 소리, 빛 센서 데이터를 5x5 LED 화면에 띄우는 방법을 배웁니다." },
+                    { id: 3, title: "확장 환경 센서 날개를 달다!", phase: "도입 및 기초", body: "마이크로비트에 전용 확장 쉴드를 결합합니다. 외부 미세먼지 센서(PM2.5), 빗물 감지 센서, 아날로그 토양 수분 센서의 연결 단자를 조립합니다." },
+                    { id: 4, title: "엔트리로 그리는 실시간 대시보드", phase: "실습 및 심화", body: "마이크로비트와 엔트리를 유선/무선으로 연결합니다. 마이크로비트가 읽어 들인 미세먼지 수치를 엔트리의 세련된 게이지 그래픽과 바 차트로 실시간 연결합니다." },
+                    { id: 5, title: "에코 데이터 저장소 구축", phase: "실습 및 심화", body: "우리 조만의 오염 측정 챌린지! 학교 화단, 복도, 정문, 체육관을 순회하며 수집한 미세먼지 및 소음 값을 엔트리 테이블 데이터베이스(CSV)에 정밀 저장합니다." },
+                    { id: 6, title: "빅데이터로 그리는 우리 학교 환경 지도", phase: "실습 및 심화", body: "엔트리의 빅데이터 통계 플러그인을 활성화합니다. 저장된 CSV 파일 데이터를 정제하고 평균값, 최대소음을 교차 분석하여 '우리 학교 오염 취약지 지도'를 맵핑합니다." },
+                    { id: 7, title: "자동 에코 리액터 기획", phase: "실습 및 심화", body: "피드백 루프를 배웁니다. '만약 미세먼지 농도가 80 이상이면 미니 공기청정기 팬을 돌리고 LED에 빨간 경보를 켠다'는 자동 액츄에이팅 조건 코드를 블록으로 구현합니다." },
+                    { id: 8, title: "리사이클 가전 메이커 (하우징 설계)", phase: "융합 및 프로젝트", body: "메이커 정신! 버려진 페트병, 우유팩, 빨대 등을 활용해 에코 스마트 기기가 수분이나 오염에 견딜 수 있는 외관 구조를 예술적으로 조립합니다." },
+                    { id: 9, title: "스마트 그린 스페이스 코딩", phase: "융합 및 프로젝트", body: "센서 오차를 없애기 위한 칼만 필터 형태의 보정 코드를 조립합니다. 센서 값이 튀는 오작동을 해결하고 코드를 업그레이드합니다." },
+                    { id: 10, title: "에코 가디언 프로토타입 완성", phase: "융합 및 프로젝트", body: "'자동 스마트 물뿌리개 화분', '가족 안심 미세먼지 알리미', '층간소음 지킴이' 등 각 조의 에코 가디언 스마트 시스템 조립을 완성합니다." },
+                    { id: 11, title: "에코 아이디어 경진대회 및 시연", phase: "최종 발표", body: "작품을 교실 책상에 얹고 분무기 및 모의 분진을 사용해 센서가 정상 동작하여 리액터(팬, 서보모터)를 가동하는지 눈앞에서 생생하게 시연합니다." },
+                    { id: 12, title: "환경 수호대 선언 및 평가", phase: "최종 발표", body: "본인 조의 기기가 1년간 작동 시 저감 가능한 온실가스 탄소 배출량을 수치로 가상 계산하여 발표합니다. 에코 디지털 라이선스를 교부받으며 성료합니다." }
+                ]
+            },
+            3: {
+                title: "넥스트 버추얼 빌더",
+                subtitle: "메타버스와 디지털 트윈 배리어 프리 스쿨 [초등 고학년~고등 과정]",
+                markdown: `### [디지털 새싹 교육 프로그램 기획서]
+■ 프로그램명: 넥스트 버추얼 빌더: 메타버스와 디지털 트윈 배리어 프리 스쿨
+■ 교육대상: 초등 고학년 ~ 고등학생
+■ 핵심도구: CoSpaces Edu / Roblox Studio, 코블록스 / Lua Script, VR 카드보드
+■ 기대효과: 디지털 공간 구축, 유니버설 디자인 기반 공감 능력 및 배리어프리 실현
+
+[12차시 세부 커리큘럼]
+- 1차시: 누구도 소외되지 않는 디자인, 배리어 프리 (장애 없는 공공 인프라와 배리어 프리 학습)
+- 2차시: 메타버스로 구현하는 현실: 디지털 트윈 (가상 공간 빌더 조작 및 3D 기초 건축)
+- 3차시: 우리 학교 3D 스케치 및 치수 실측 (현장 실측 데이터를 기반으로 3D 공간의 해상도 축척 계산)
+- 4차시: 디지털 트윈 공간 구성 및 텍스처링 (메타버스에 학교 전경, 복도, 계단, 특수 교실 배치 및 텍스처 삽입)
+- 5차시: 코블록스/스크립트 기반 동적 엘리베이터 (휠체어 이용자를 위해 버튼 클릭 시 층간 이동하는 승강기 구현)
+- 6차시: 스마트 음성 안내 및 촉지도 인터랙션 (트리거 영역 통과 시 시각장애인 관점을 위한 가이드 사운드 코딩)
+- 7차시: 휠체어 시뮬레이터 카메라 탑재 (시점 카메라 높이를 1.1m로 제한하여 휠체어 전용 맵 주행 테스트 스크립트 코딩)
+- 8차시: 배리어 프리 개선 포인트 분석 및 매핑 (가상 카메라 탑재 차량으로 주행하며 통과 불가한 턱, 좁은 통로 목록 도출)
+- 9차시: 배리어 프리 공간 업그레이드 리디자인 (경사로 신설, 점자 블록 배치, 다국어 번역 키오스크 설치 코딩)
+- 10차시: 스마트 IoT 대피 경로 유도 시스템 (지진/화재 상황 시 복도의 안전선이 최단 탈출구로 자동 깜빡이는 비상 로직 구현)
+- 11차시: 메타버스 VR/AR 체험 및 피어 피드백 (친구들과 서로의 맵에 접속해 보고 보강할 점을 교차 댓글로 디버깅)
+- 12차시: 배리어 프리 스페이스 쇼케이스 및 교육청 제출용 제안 (메타버스 디지털 트윈 결과물 최종 프레젠테이션)` ,
+                timeline: [
+                    { id: 1, title: "누구도 소외되지 않는 디자인, 배리어 프리", phase: "도입 및 기초", body: "휠체어를 이용하는 학생, 다문화 학생, 고령층이 일상에서 느끼는 불편함을 학습합니다. 유니버설 디자인 및 배리어 프리가 필요한 이유를 공감합니다." },
+                    { id: 2, title: "메타버스로 구현하는 현실: 디지털 트윈", phase: "도입 및 기초", body: "CoSpaces Edu 또는 Roblox Studio의 가상 현실 물리 엔진을 파악합니다. 마우스 휠, 단축키 조작을 이용해 기본 도형으로 3D 구조를 정교하게 얹어봅니다." },
+                    { id: 3, title: "우리 학교 3D 스케치 및 치수 실측", phase: "도입 및 기초", body: "진짜 우리 학교를 맵으로 만듭니다! 교실 복도의 폭, 계단 단의 높이, 장애인 경사로의 각도를 줄자로 직접 실측하고, 가상 공간을 위한 축척 가이드를 잡습니다." },
+                    { id: 4, title: "디지털 트윈 공간 구성 및 텍스처링", phase: "실습 및 심화", body: "실측한 값을 3D 가상 공간에 대입하여 실제 학교 현관과 계단, 화장실의 뼈대를 건설합니다. 창문 크기, 벽지 색상 등을 가상 이미지 리소스로 입힙니다." },
+                    { id: 5, title: "코블록스/스크립트 기반 동적 엘리베이터", phase: "실습 및 심화", body: "승강기가 없는 학교 건물을 개선합니다. 플레이어가 탑승 버튼을 클릭하면, 상하 z축 위치값이 일정 속도로 이동하고 멈추는 물리 리프트 인터랙션을 블록/Lua로 코딩합니다." },
+                    { id: 6, title: "스마트 음성 안내 및 촉지도 인터랙션", phase: "실습 및 심화", body: "시각 장애 학생을 돕기 위해, 가상 캐릭터가 특수 교실(도서관, 과학실) 앞에 다가갔을 때 음성 TTS 가이드가 울리는 범위 충돌(Trigger) 스크립트를 조립합니다." },
+                    { id: 7, title: "휠체어 시뮬레이터 카메라 탑재", phase: "실습 및 심화", body: "가장 중요한 체감 훈련! 가상 주행 캐릭터 카메라의 높이를 지면에서 110cm(휠체어 눈높이)로 고정하고, 조작 키를 휠체어 회전 반경 물리값에 맞춰 세팅합니다." },
+                    { id: 8, title: "배리어 프리 개선 포인트 분석 및 매핑", phase: "융합 및 프로젝트", body: "휠체어 가상 카메라로 본인의 학교 맵을 직접 한 바퀴 돌아봅니다. 휠체어가 올라갈 수 없는 계단 턱, 복도의 물건, 화장실 문 여닫이의 좁은 공간 등 버그/개선 포인트를 엑셀 시트에 정리합니다." },
+                    { id: 9, title: "배리어 프리 공간 업그레이드 리디자인", phase: "융합 및 프로젝트", body: "분석 결과를 기반으로 가상 학교를 대개조합니다! 계단 옆에 경사각 12도 이하의 휠체어 램프를 달고, 바닥에 노란 점자 블록을 매끄럽게 깔며 음성 다국어 키오스크를 추가 배치합니다." },
+                    { id: 10, title: "스마트 IoT 대피 경로 유도 시스템", phase: "융합 및 프로젝트", body: "위급 시 안전 취약 계층을 위한 탈출 유도 코딩. 화재 버튼을 누르면 대피 경로의 바닥 네온 라인이 순차적으로 점멸하며 엘리베이터 대신 경사로로 안전하게 도망칠 수 있도록 가이드합니다." },
+                    { id: 11, title: "메타버스 VR/AR 체험 및 피어 피드백", phase: "최종 발표", body: "모바일 카드보드 VR 글래스를 장착하여 자신이 개조한 '배리어 프리 디지털 트윈 학교'에 들어가 360도로 몰입 탐색하고, 친구의 맵에 탑승해 보며 느낀 점을 피드백합니다." },
+                    { id: 12, title: "배리어 프리 스페이스 쇼케이스", phase: "최종 발표", body: "최종 공간 개선안을 프리젠테이션합니다. 전후(Before/After) 비교 스크린샷과 공간 사용자의 만족도 시뮬레이션 지표를 기재하여, 교육청 제출용 제안 카드로 포팅해 뽐냅니다." }
+                ]
+            }
+        };
+
+        // Open Modal and Populates timeline
+        function openCurriculum(programId) {
+            const data = curriculumData[programId];
+            document.getElementById('modalProgramTitle').innerText = data.title;
+            document.getElementById('modalProgramSubtitle').innerText = data.subtitle;
+
+            const container = document.getElementById('timelineContainer');
+            container.innerHTML = ''; // Clear prior content
+
+            data.timeline.forEach(item => {
+                let phaseClass = '';
+                if (item.phase === "도입 및 기초") phaseClass = 'phase-intro';
+                else if (item.phase === "실습 및 심화") phaseClass = 'phase-core';
+                else phaseClass = 'phase-project';
+
+                const timelineHTML = `
+                    <div class="timeline-item">
+                        <div class="timeline-badge">${item.id}</div>
+                        <div class="timeline-content">
+                            <div class="timeline-header">
+                                <div class="timeline-title">${item.title}</div>
+                                <span class="timeline-phase ${phaseClass}">${item.phase}</span>
+                            </div>
+                            <div class="timeline-body">${item.body}</div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += timelineHTML;
+            });
+
+            document.getElementById('curriculumModal').classList.add('active');
+            document.body.style.overflow = 'hidden'; // Lock background scroll
+        }
+
+        // Close Modal
+        function closeModal() {
+            document.getElementById('curriculumModal').classList.remove('active');
+            document.body.style.overflow = 'auto'; // Unlock scroll
+        }
+
+        function closeModalOutside(e) {
+            if (e.target.id === 'curriculumModal') {
+                closeModal();
+            }
+        }
+
+        // Copy Curriculum to Clipboard
+        function copyCurriculum(programId) {
+            const textToCopy = curriculumData[programId].markdown;
+            
+            // Create dummy textarea
+            const textarea = document.createElement('textarea');
+            textarea.value = textToCopy;
+            document.body.appendChild(textarea);
+            textarea.select();
+            
+            try {
+                document.execCommand('copy');
+                showToast();
+            } catch (err) {
+                console.error('Failed to copy', err);
+            }
+            
+            document.body.removeChild(textarea);
+        }
+
+        // Show Toast
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.add('active');
+            
+            setTimeout(() => {
+                toast.classList.remove('active');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
