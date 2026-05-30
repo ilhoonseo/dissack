@@ -1047,7 +1047,9 @@
             margin-bottom: 0.5rem;
         }
 
-        /* Responsive */
+        /* =========================================
+           Responsive & Mobile Optimization 
+           ========================================= */
         @media (max-width: 1024px) {
             .dev-card {
                 grid-template-columns: 1fr;
@@ -1062,8 +1064,25 @@
         }
 
         @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem; /* Margins minimized for small screens */
+            }
+            .hero {
+                padding: 4rem 0 2rem 0;
+            }
             .hero h1 {
-                font-size: 2.25rem;
+                font-size: 2rem; /* Avoid huge typography clipping */
+                word-break: keep-all;
+            }
+            .hero p {
+                font-size: 0.95rem;
+            }
+            .overview-grid {
+                grid-template-columns: 1fr; /* Stack vertically */
+                gap: 1rem;
+            }
+            .overview-card {
+                padding: 1.5rem;
             }
             .section-header {
                 flex-direction: column;
@@ -1072,6 +1091,93 @@
             }
             .filter-buttons {
                 width: 100%;
+                display: grid;
+                grid-template-columns: 1fr 1fr; /* 2x2 layout on mobile */
+                gap: 0.5rem;
+            }
+            .btn-filter {
+                width: 100%;
+                text-align: center;
+                padding: 0.5rem;
+            }
+            .programs-grid {
+                grid-template-columns: 1fr; /* Stack analysis list vertically */
+                gap: 1rem;
+            }
+            .developed-section {
+                padding: 1.5rem 1rem; /* Substantial padding relief to prevent clipping */
+                border-radius: 16px;
+            }
+            .dev-card-info {
+                padding: 1.5rem;
+            }
+            .dev-card-desc {
+                padding: 1.5rem;
+            }
+            .core-outcomes ul {
+                grid-template-columns: 1fr; /* Prevent tight box compression */
+                gap: 0.5rem;
+            }
+            .dev-actions {
+                flex-direction: column; /* Stack primary and secondary actions */
+                gap: 0.75rem;
+            }
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            /* Modal / Popup responsive overrides */
+            .modal-container {
+                width: 95%;
+                max-height: 90vh;
+                border-radius: 16px;
+            }
+            .modal-header {
+                padding: 1.25rem 1.5rem;
+            }
+            .modal-content {
+                padding: 1.25rem 1.5rem;
+            }
+            .timeline {
+                padding-left: 2rem;
+            }
+            .timeline::before {
+                left: 9px;
+            }
+            .timeline-badge {
+                left: -2rem;
+                width: 20px;
+                height: 20px;
+                font-size: 0.65rem;
+            }
+            .timeline-content {
+                padding: 0.75rem 1rem;
+            }
+            .timeline-title {
+                font-size: 0.9rem;
+            }
+            .timeline-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.25rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .header-content {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                align-items: center;
+                gap: 0.75rem;
+            }
+            /* Hide the large developer badge on extra tiny viewports to gain breathing room */
+            .badge-dev {
+                display: none; 
+            }
+            .logo {
+                font-size: 1.25rem;
             }
         }
     </style>
@@ -1392,16 +1498,16 @@
                             <h4><i class="fa-solid fa-star"></i> 핵심 기대 효과</h4>
                             <div class="core-outcomes">
                                 <ul>
-                                    <li><i class="fa-solid fa-check"></i> 센서-하드웨어-소프트웨어 통합 제어력</li>
-                                    <li><i class="fa-solid fa-check"></i> 파이썬 기초 코딩 및 AI 컴퓨터 비전 이해</li>
-                                    <li><i class="fa-solid fa-check"></i> 미션 해결 과정에서의 협동 및 메이커 소양</li>
-                                    <li><i class="fa-solid fa-check"></i> 미래 항공우주 진로 탐색 동기 부여</li>
+                                    <li><i class="fa-solid fa-check"></i> 통합 제어력 배양</li>
+                                    <li><i class="fa-solid fa-check"></i> 컴퓨터 비전 이해</li>
+                                    <li><i class="fa-solid fa-check"></i> 미션 해결력 향상</li>
+                                    <li><i class="fa-solid fa-check"></i> 미래 진로 동기 부여</li>
                                 </ul>
                             </div>
                         </div>
                         <div style="font-size: 0.85rem; color: var(--text-muted); border-top: 1px solid var(--card-border); padding-top: 1rem; display: flex; justify-content: space-between;">
-                            <span>키워드: #우주과학 #인공지능 #파이썬 #자율주행</span>
-                            <span style="color: var(--accent);"><i class="fa-solid fa-fire"></i> 우수 기획 추천</span>
+                            <span>키워드: #우주과학 #인공지능 #파이썬</span>
+                            <span style="color: var(--accent);"><i class="fa-solid fa-fire"></i> 우수 추천</span>
                         </div>
                     </div>
                 </div>
@@ -1444,16 +1550,16 @@
                             <h4><i class="fa-solid fa-star"></i> 핵심 기대 효과</h4>
                             <div class="core-outcomes">
                                 <ul>
-                                    <li><i class="fa-solid fa-check"></i> 친환경 가치 중심의 SDGs/ESG 융합 사고</li>
-                                    <li><i class="fa-solid fa-check"></i> 기후 모니터링 데이터 분석 및 시각화 능력</li>
-                                    <li><i class="fa-solid fa-check"></i> 마이크로비트 활용 및 엔트리 블록 코딩 마스터</li>
-                                    <li><i class="fa-solid fa-check"></i> 생활용품 재활용품 연계 창의 메이커십</li>
+                                    <li><i class="fa-solid fa-check"></i> SDGs/ESG 융합 사고</li>
+                                    <li><i class="fa-solid fa-check"></i> 데이터 시각화 능력</li>
+                                    <li><i class="fa-solid fa-check"></i> 블록 코딩 마스터</li>
+                                    <li><i class="fa-solid fa-check"></i> 창의 메이커십 배양</li>
                                 </ul>
                             </div>
                         </div>
                         <div style="font-size: 0.85rem; color: var(--text-muted); border-top: 1px solid var(--card-border); padding-top: 1rem; display: flex; justify-content: space-between;">
-                            <span>키워드: #ESG #빅데이터 #마이크로비트 #메이커스</span>
-                            <span style="color: var(--secondary);"><i class="fa-solid fa-heart"></i> 사회공헌 연계</span>
+                            <span>키워드: #ESG #빅데이터 #마이크로비트</span>
+                            <span style="color: var(--secondary);"><i class="fa-solid fa-heart"></i> 사회공헌</span>
                         </div>
                     </div>
                 </div>
@@ -1472,7 +1578,7 @@
                             </div>
                             <div class="spec-item">
                                 <i class="fa-solid fa-screwdriver-wrench"></i>
-                                <span>교구 : <strong>CoSpaces Edu / Roblox Studio, VR 카드보드</strong></span>
+                                <span>교구 : <strong>CoSpaces / Roblox Studio, VR 기기</strong></span>
                             </div>
                             <div class="spec-item">
                                 <i class="fa-solid fa-clock"></i>
@@ -1496,16 +1602,16 @@
                             <h4><i class="fa-solid fa-star"></i> 핵심 기대 효과</h4>
                             <div class="core-outcomes">
                                 <ul>
-                                    <li><i class="fa-solid fa-check"></i> 약자 동행 및 디지털 시민성 가치 내재화</li>
-                                    <li><i class="fa-solid fa-check"></i> 메타버스 디지털 트윈 및 3D 모델링 스킬</li>
-                                    <li><i class="fa-solid fa-check"></i> 인터랙션 트리거 코딩 및 UX 관점의 분석력</li>
-                                    <li><i class="fa-solid fa-check"></i> 가상 현실 기기(VR) 체험을 통한 메타버스 리터러시</li>
+                                    <li><i class="fa-solid fa-check"></i> 약자 동행 가치 체득</li>
+                                    <li><i class="fa-solid fa-check"></i> 메타버스 설계 능력</li>
+                                    <li><i class="fa-solid fa-check"></i> 인터랙션 트리거 코딩</li>
+                                    <li><i class="fa-solid fa-check"></i> 메타버스 리터러시</li>
                                 </ul>
                             </div>
                         </div>
                         <div style="font-size: 0.85rem; color: var(--text-muted); border-top: 1px solid var(--card-border); padding-top: 1rem; display: flex; justify-content: space-between;">
-                            <span>키워드: #배리어프리 #디지털트윈 #CoSpaces #로블록스</span>
-                            <span style="color: #10B981;"><i class="fa-solid fa-award"></i> 교육청 추천 유형</span>
+                            <span>키워드: #배리어프리 #디지털트윈 #CoSpaces</span>
+                            <span style="color: #10B981;"><i class="fa-solid fa-award"></i> 교육청 추천</span>
                         </div>
                     </div>
                 </div>
@@ -1729,7 +1835,7 @@
                 title: "넥스트 버추얼 빌더",
                 subtitle: "메타버스와 디지털 트윈 배리어 프리 스쿨 [초등 고학년~고등 과정]",
                 markdown: `### [디지털 새싹 교육 프로그램 기획서]
-■ 프로그램명: 넥스트 버추얼 빌더: 메타버스와 디지털 트윈 배리어 프리 스쿨
+■ programme 명: 넥스트 버추얼 빌더: 메타버스와 디지털 트윈 배리어 프리 스쿨
 ■ 교육대상: 초등 고학년 ~ 고등학생
 ■ 핵심도구: CoSpaces Edu / Roblox Studio, 코블록스 / Lua Script, VR 카드보드
 ■ 기대효과: 디지털 공간 구축, 유니버설 디자인 기반 공감 능력 및 배리어프리 실현
