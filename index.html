@@ -3,9 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>디지털 새싹 신규 교육 프로그램 개발 및 트렌드 제안서</title>
+    <title>디지털 새싹 교육 프로그램 기획 및 개발 대시보드</title>
     
-    <!-- Google Fonts & Tailwind-like CSS variables -->
+    <!-- SEO & SNS Open Graph Meta Tags -->
+    <meta name="description" content="디지털 새싹 15대 교육 프로그램 분석 및 3대 신규 12차시 교육 프로그램 운영기관 제안 대시보드">
+    <meta property="og:title" content="디지털 새싹 교육 프로그램 기획 대시보드">
+    <meta property="og:description" content="AI, IoT, 메타버스 융합 3대 신규 교육 프로그램 기획서 및 12차시 상세 타임라인 수록">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dissack.vercel.app">
+    
+    <!-- Google Fonts & Pretendard -->
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     
@@ -14,6 +21,10 @@
 
     <style>
         :root {
+            /* Transition speed */
+            --theme-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+            /* Dark Theme Colors (Default) */
             --bg-color: #080B11;
             --card-bg: rgba(17, 24, 39, 0.7);
             --card-border: rgba(255, 255, 255, 0.08);
@@ -29,6 +40,33 @@
             --glass-bg: rgba(15, 23, 42, 0.45);
             --font-main: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
             --font-eng: 'Outfit', sans-serif;
+            
+            --modal-bg: #0D111A;
+            --timeline-bg: rgba(255, 255, 255, 0.02);
+            --timeline-border: rgba(255, 255, 255, 0.04);
+            --timeline-hover: rgba(255, 255, 255, 0.04);
+        }
+
+        /* Light Theme Color Swaps */
+        body.light-theme {
+            --bg-color: #F3F4F6;
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --card-border: rgba(0, 0, 0, 0.06);
+            --primary: #6D28D9;
+            --primary-glow: rgba(109, 40, 217, 0.15);
+            --secondary: #0891B2;
+            --secondary-glow: rgba(8, 145, 178, 0.15);
+            --accent: #E11D48;
+            --accent-glow: rgba(225, 29, 72, 0.15);
+            --text-main: #111827;
+            --text-muted: #4B5563;
+            --text-dark: #9CA3AF;
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            
+            --modal-bg: #FFFFFF;
+            --timeline-bg: #F9FAFB;
+            --timeline-border: rgba(0, 0, 0, 0.05);
+            --timeline-hover: #E5E7EB;
         }
 
         * {
@@ -44,9 +82,10 @@
             line-height: 1.6;
             overflow-x: hidden;
             background-image: 
-                radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.08) 0%, transparent 40%);
+                radial-gradient(circle at 10% 20%, var(--primary-glow) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, var(--secondary-glow) 0%, transparent 40%);
             background-attachment: fixed;
+            transition: var(--theme-transition);
         }
 
         /* Scrollbar styling */
@@ -54,10 +93,10 @@
             width: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #0B0F19;
+            background: var(--bg-color);
         }
         ::-webkit-scrollbar-thumb {
-            background: #2D3748;
+            background: var(--text-dark);
             border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
@@ -75,10 +114,11 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            background: rgba(8, 11, 17, 0.8);
+            background: var(--glass-bg);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--card-border);
             padding: 1rem 0;
+            transition: var(--theme-transition);
         }
 
         .header-content {
@@ -105,14 +145,48 @@
             -webkit-text-fill-color: transparent;
         }
 
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        /* Theme Switch Toggle button */
+        .theme-toggle-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+        .theme-toggle-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: scale(1.05);
+        }
+
+        body.light-theme .theme-toggle-btn {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
         .badge-dev {
             background: rgba(139, 92, 246, 0.15);
-            color: #C084FC;
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            padding: 0.25rem 0.75rem;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 0.4rem 1rem;
             border-radius: 9999px;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .hero {
@@ -147,7 +221,7 @@
             font-size: 0.875rem;
             color: var(--secondary);
             margin-bottom: 1.5rem;
-            font-weight: 500;
+            font-weight: 600;
             backdrop-filter: blur(4px);
         }
 
@@ -160,7 +234,7 @@
         }
 
         .hero h1 span {
-            background: linear-gradient(135deg, #06B6D4 0%, #8B5CF6 50%, #F43F5E 100%);
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 50%, var(--accent) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -186,7 +260,7 @@
             border-radius: 16px;
             padding: 2rem;
             backdrop-filter: blur(8px);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: var(--theme-transition);
             position: relative;
             overflow: hidden;
         }
@@ -205,7 +279,11 @@
         .overview-card:hover {
             transform: translateY(-5px);
             border-color: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
+        }
+
+        body.light-theme .overview-card:hover {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
         }
 
         .overview-card.purple:hover::before {
@@ -265,6 +343,7 @@
             margin-bottom: 2rem;
             border-bottom: 1px solid var(--card-border);
             padding-bottom: 1rem;
+            transition: var(--theme-transition);
         }
 
         .section-title {
@@ -300,12 +379,20 @@
             font-size: 0.875rem;
             cursor: pointer;
             transition: all 0.2s;
-            font-weight: 500;
+            font-weight: 600;
+        }
+
+        body.light-theme .btn-filter {
+            background: rgba(0, 0, 0, 0.03);
         }
 
         .btn-filter:hover {
             background: rgba(255, 255, 255, 0.08);
             color: var(--text-main);
+        }
+
+        body.light-theme .btn-filter:hover {
+            background: rgba(0, 0, 0, 0.06);
         }
 
         .btn-filter.active {
@@ -331,14 +418,14 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: var(--theme-transition);
             position: relative;
         }
 
         .program-card:hover {
             transform: translateY(-3px);
             border-color: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.3);
         }
 
         .program-card-header {
@@ -358,6 +445,10 @@
             border-radius: 4px;
         }
 
+        body.light-theme .prog-id {
+            background: rgba(0, 0, 0, 0.04);
+        }
+
         .prog-tag {
             font-size: 0.75rem;
             font-weight: 600;
@@ -367,20 +458,20 @@
 
         .tag-ai {
             background: rgba(139, 92, 246, 0.15);
-            color: #C084FC;
-            border: 1px solid rgba(139, 92, 246, 0.3);
+            color: var(--primary);
+            border: 1px solid var(--primary);
         }
 
         .tag-iot {
             background: rgba(6, 182, 212, 0.15);
-            color: #22D3EE;
-            border: 1px solid rgba(6, 182, 212, 0.3);
+            color: var(--secondary);
+            border: 1px solid var(--secondary);
         }
 
         .tag-meta {
             background: rgba(244, 63, 94, 0.15);
-            color: #FB7185;
-            border: 1px solid rgba(244, 63, 94, 0.3);
+            color: var(--accent);
+            border: 1px solid var(--accent);
         }
 
         .program-card h4 {
@@ -398,7 +489,7 @@
         }
 
         .program-meta {
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 1px solid var(--card-border);
             padding-top: 0.75rem;
             display: flex;
             justify-content: space-between;
@@ -415,12 +506,17 @@
         /* Developed Programs (3 new programs) */
         .developed-section {
             background: rgba(15, 23, 42, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
             border-radius: 24px;
             padding: 3rem;
             margin-bottom: 5rem;
             position: relative;
             overflow: hidden;
+            transition: var(--theme-transition);
+        }
+
+        body.light-theme .developed-section {
+            background: rgba(255, 255, 255, 0.45);
         }
 
         .developed-section::before {
@@ -456,28 +552,33 @@
         }
 
         .dev-card {
-            background: rgba(17, 24, 39, 0.85);
+            background: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 20px;
             overflow: hidden;
             display: grid;
             grid-template-columns: 350px 1fr;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: var(--theme-transition);
             position: relative;
         }
 
         .dev-card:hover {
-            border-color: rgba(139, 92, 246, 0.4);
-            box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.6);
+            border-color: var(--primary);
+            box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.3);
         }
 
         .dev-card-info {
             padding: 2.5rem;
-            background: linear-gradient(135deg, rgba(20, 24, 33, 0.9) 0%, rgba(13, 16, 23, 0.9) 100%);
+            background: linear-gradient(135deg, rgba(20, 24, 33, 0.25) 0%, rgba(13, 16, 23, 0.25) 100%);
             border-right: 1px solid var(--card-border);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            transition: var(--theme-transition);
+        }
+
+        body.light-theme .dev-card-info {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.02) 0%, rgba(0, 0, 0, 0.04) 100%);
         }
 
         .dev-card-desc {
@@ -492,9 +593,7 @@
             font-weight: 800;
             margin-bottom: 1rem;
             line-height: 1.3;
-            background: linear-gradient(135deg, #FFF 60%, var(--text-muted) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--text-main);
         }
 
         .dev-specs {
@@ -554,12 +653,16 @@
             font-size: 0.85rem;
             color: var(--text-main);
             background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--card-border);
             padding: 0.5rem 0.75rem;
             border-radius: 8px;
             display: flex;
             align-items: center;
             gap: 0.5rem;
+        }
+
+        body.light-theme .core-outcomes li {
+            background: rgba(0, 0, 0, 0.02);
         }
 
         .core-outcomes li i {
@@ -572,7 +675,7 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--primary) 0%, #6D28D9 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary) 100%);
             color: white;
             border: none;
             padding: 0.75rem 1.5rem;
@@ -588,7 +691,7 @@
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5);
+            box-shadow: 0 6px 20px var(--primary-glow);
         }
 
         .btn-secondary {
@@ -605,9 +708,17 @@
             gap: 0.5rem;
         }
 
+        body.light-theme .btn-secondary {
+            background: rgba(0, 0, 0, 0.02);
+        }
+
         .btn-secondary:hover {
             background: rgba(255, 255, 255, 0.08);
             border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        body.light-theme .btn-secondary:hover {
+            background: rgba(0, 0, 0, 0.05);
         }
 
         /* Modal & Timeline */
@@ -634,7 +745,7 @@
         }
 
         .modal-container {
-            background: #0D111A;
+            background: var(--modal-bg);
             border: 1px solid var(--card-border);
             width: 90%;
             max-width: 900px;
@@ -643,9 +754,9 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
             transform: scale(0.95);
-            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), var(--theme-transition);
         }
 
         .modal-overlay.active .modal-container {
@@ -658,15 +769,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(17, 24, 39, 0.5);
+            background: rgba(0, 0, 0, 0.05);
         }
 
         .modal-title h3 {
             font-size: 1.35rem;
             font-weight: 800;
-            background: linear-gradient(90deg, #FFF, var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--text-main);
         }
 
         .modal-title p {
@@ -687,6 +796,10 @@
             justify-content: center;
             cursor: pointer;
             transition: all 0.2s;
+        }
+
+        body.light-theme .btn-close {
+            background: rgba(0, 0, 0, 0.05);
         }
 
         .btn-close:hover {
@@ -733,7 +846,7 @@
             width: 24px;
             height: 24px;
             border-radius: 50%;
-            background: #0D111A;
+            background: var(--modal-bg);
             border: 2px solid var(--secondary);
             color: var(--secondary);
             display: flex;
@@ -759,15 +872,15 @@
         }
 
         .timeline-content {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.04);
+            background: var(--timeline-bg);
+            border: 1px solid var(--timeline-border);
             border-radius: 12px;
             padding: 1rem 1.5rem;
             transition: all 0.2s;
         }
 
         .timeline-content:hover {
-            background: rgba(255, 255, 255, 0.04);
+            background: var(--timeline-hover);
             border-color: rgba(255, 255, 255, 0.08);
             transform: translateX(4px);
         }
@@ -828,6 +941,7 @@
             border-radius: 20px;
             padding: 2.5rem;
             position: relative;
+            transition: var(--theme-transition);
         }
 
         .strategy-box h3 {
@@ -885,14 +999,14 @@
             position: fixed;
             bottom: 2rem;
             right: 2rem;
-            background: rgba(17, 24, 39, 0.95);
+            background: var(--card-bg);
             border: 1px solid var(--secondary);
             border-radius: 10px;
             padding: 1rem 1.5rem;
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
             transform: translateY(100px);
             opacity: 0;
             transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -922,10 +1036,11 @@
         footer {
             border-top: 1px solid var(--card-border);
             padding: 3rem 0;
-            background: rgba(4, 6, 10, 0.9);
+            background: rgba(0, 0, 0, 0.1);
             text-align: center;
             font-size: 0.875rem;
             color: var(--text-muted);
+            transition: var(--theme-transition);
         }
 
         footer p {
@@ -970,8 +1085,14 @@
                 <i class="fa-solid fa-seedling"></i>
                 <span>NEW SAC PARTNER</span>
             </div>
-            <div class="badge-dev">
-                <i class="fa-solid fa-graduation-cap"></i> 디지털 새싹 운영기관 제안 대시보드
+            
+            <div class="header-controls">
+                <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="화면 테마 전환">
+                    <i class="fa-solid fa-moon" id="themeIcon"></i>
+                </button>
+                <div class="badge-dev">
+                    <i class="fa-solid fa-graduation-cap"></i> 디지털 새싹 기획 대시보드
+                </div>
             </div>
         </div>
     </header>
@@ -1462,8 +1583,8 @@
     <div class="toast" id="toast">
         <i class="fa-solid fa-circle-check"></i>
         <div class="toast-content">
-            <h4>기획서 텍스트 복사 완료!</h4>
-            <p>클립보드에 마크다운 기획안이 복사되었습니다.</p>
+            <h4 id="toastTitle">기획서 텍스트 복사 완료!</h4>
+            <p id="toastMessage">클립보드에 마크다운 기획안이 복사되었습니다.</p>
         </div>
     </div>
 
@@ -1476,6 +1597,36 @@
     </footer>
 
     <script>
+        // Theme Engine
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            
+            body.classList.toggle('light-theme');
+            
+            if (body.classList.contains('light-theme')) {
+                themeIcon.className = 'fa-solid fa-sun';
+                localStorage.setItem('theme', 'light');
+            } else {
+                themeIcon.className = 'fa-solid fa-moon';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Apply saved theme on load
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            const themeIcon = document.getElementById('themeIcon');
+            
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-theme');
+                themeIcon.className = 'fa-solid fa-sun';
+            } else {
+                document.body.classList.remove('light-theme');
+                themeIcon.className = 'fa-solid fa-moon';
+            }
+        });
+
         // Filter functionality for Section 1
         function filterPrograms(category) {
             // Update active state in filter buttons
@@ -1528,7 +1679,7 @@
                     { id: 3, title: "파이썬 & 아두이노 통신 기초", phase: "도입 및 기초", body: "파이썬 개발 환경을 구축하고, PC(관제소)와 탐사선(하드웨어) 간의 시리얼 통신 및 Wi-Fi 프로토콜 통신 코드를 분석하고 테스트합니다." },
                     { id: 4, title: "행성 표면 센싱 기술 (데이터 획득)", phase: "실습 및 심화", body: "지구와 다른 행성의 환경 조건을 모방합니다. 토양 수분 센서, 가속도 센서를 연결하여 들어오는 센서 데이터를 그래프로 파이썬에 띄웁니다." },
                     { id: 5, title: "장애물 회피 자율주행 알고리즘", phase: "실습 및 심화", body: "초음파 센서와 모터를 제어합니다. 탐사선 주행 중에 미지의 기물이나 암석에 가까워지면 즉시 제동하거나 우회하는 경로 로직을 짭니다." },
-                    { id: 6, title: "컴퓨터 비전과 실시간 스트리밍", phase: "실습 및 심화", body: "ESP32-CAM의 렌즈를 통해 보이는 가상 행성의 영상 스트리밍을 파이썬 화면 상에 실시간으로 프레임 단위로 수집합니다." },
+                    { id: 6, title: "컴퓨터 비전과 실시간 영상 분석", phase: "실습 및 심화", body: "ESP32-CAM의 렌즈를 통해 보이는 가상 행성의 영상 스트리밍을 파이썬 화면 상에 실시간으로 프레임 단위로 수집합니다." },
                     { id: 7, title: "딥러닝 기반 행성 장애물 분류", phase: "실습 및 심화", body: "Teachable Machine 및 OpenCV를 활용하여, 행성 위에 산재한 '유해 광물', '분화구', '정상 루트'의 이미지를 클래스로 분류하여 AI 모델을 훈련시킵니다." },
                     { id: 8, title: "AI 분류 모델과 로버 하드웨어 연동", phase: "융합 및 프로젝트", body: "앞서 웹브라우저/서버에서 훈련시킨 파일(학습 모델)과 아두이노 차량 제어를 연결합니다. 위협 물체를 식별하면 정지하고, 정상 루트는 통과합니다." },
                     { id: 9, title: "자동 리턴 및 조난 방지 시스템", phase: "융합 및 프로젝트", body: "자이로 가속도 센서를 더하여, 통신 수신 불량 혹은 탐사선이 전복 위험에 처했을 때 직전 3초 동안의 주행 궤적을 복사하여 안전한 곳으로 자동 후진하는 이중 안전 로직 코딩." },
@@ -1555,7 +1706,7 @@
 - 6차시: 빅데이터로 그리는 우리 학교 환경 지도 (엔트리 데이터 통계 도구를 활용해 학교 오염 지도 제작 및 요인 분석)
 - 7차시: 자동 에코 리액터 기획 (미세먼지 경고 시 환기팬 돌리기, 건조 시 LED 신호등 표시 등 조건문 코딩)
 - 8차시: 리사이클 가전 메이커 (버려진 친환경 페트병, 종이팩을 이용하여 스마트 IoT 외부 케이스 하우징 조립)
-- 9차시: 스마트 그린 스페이스 코딩 (하드웨어 케이싱 및 모듈 간 연결 디버깅 및 한계값 세부 제어)
+- 9차시: 스마트 그린 소스 코딩 (하드웨어 케이싱 및 모듈 간 연결 디버깅 및 한계값 세부 제어)
 - 10차시: 에코 가디언 프로토타입 완성 (스마트 빗물 저금통, 친환경 화초 알리미, 미세먼지 창문 개폐 시스템 조립 완료)
 - 11차시: 에코 아이디어 경진대회 및 시연 (제작한 친환경 기기 성능 작동과 팀별 모니터링 프로그램 가동 실사)
 - 12차시: 환경 수호대 선언 및 평가 (지속가능발전 기여도 점검 및 환경 배지 수여식)`,
@@ -1568,7 +1719,7 @@
                     { id: 6, title: "빅데이터로 그리는 우리 학교 환경 지도", phase: "실습 및 심화", body: "엔트리의 빅데이터 통계 플러그인을 활성화합니다. 저장된 CSV 파일 데이터를 정제하고 평균값, 최대소음을 교차 분석하여 '우리 학교 오염 취약지 지도'를 맵핑합니다." },
                     { id: 7, title: "자동 에코 리액터 기획", phase: "실습 및 심화", body: "피드백 루프를 배웁니다. '만약 미세먼지 농도가 80 이상이면 미니 공기청정기 팬을 돌리고 LED에 빨간 경보를 켠다'는 자동 액츄에이팅 조건 코드를 블록으로 구현합니다." },
                     { id: 8, title: "리사이클 가전 메이커 (하우징 설계)", phase: "융합 및 프로젝트", body: "메이커 정신! 버려진 페트병, 우유팩, 빨대 등을 활용해 에코 스마트 기기가 수분이나 오염에 견딜 수 있는 외관 구조를 예술적으로 조립합니다." },
-                    { id: 9, title: "스마트 그린 스페이스 코딩", phase: "융합 및 프로젝트", body: "센서 오차를 없애기 위한 칼만 필터 형태의 보정 코드를 조립합니다. 센서 값이 튀는 오작동을 해결하고 코드를 업그레이드합니다." },
+                    { id: 9, title: "스마트 그린 소스 코딩", phase: "융합 및 프로젝트", body: "센서 오차를 없애기 위한 칼만 필터 형태의 보정 코드를 조립합니다. 센서 값이 튀는 오작동을 해결하고 코드를 업그레이드합니다." },
                     { id: 10, title: "에코 가디언 프로토타입 완성", phase: "융합 및 프로젝트", body: "'자동 스마트 물뿌리개 화분', '가족 안심 미세먼지 알리미', '층간소음 지킴이' 등 각 조의 에코 가디언 스마트 시스템 조립을 완성합니다." },
                     { id: 11, title: "에코 아이디어 경진대회 및 시연", phase: "최종 발표", body: "작품을 교실 책상에 얹고 분무기 및 모의 분진을 사용해 센서가 정상 동작하여 리액터(팬, 서보모터)를 가동하는지 눈앞에서 생생하게 시연합니다." },
                     { id: 12, title: "환경 수호대 선언 및 평가", phase: "최종 발표", body: "본인 조의 기기가 1년간 작동 시 저감 가능한 온실가스 탄소 배출량을 수치로 가상 계산하여 발표합니다. 에코 디지털 라이선스를 교부받으며 성료합니다." }
@@ -1595,7 +1746,7 @@
 - 9차시: 배리어 프리 공간 업그레이드 리디자인 (경사로 신설, 점자 블록 배치, 다국어 번역 키오스크 설치 코딩)
 - 10차시: 스마트 IoT 대피 경로 유도 시스템 (지진/화재 상황 시 복도의 안전선이 최단 탈출구로 자동 깜빡이는 비상 로직 구현)
 - 11차시: 메타버스 VR/AR 체험 및 피어 피드백 (친구들과 서로의 맵에 접속해 보고 보강할 점을 교차 댓글로 디버깅)
-- 12차시: 배리어 프리 스페이스 쇼케이스 및 교육청 제출용 제안 (메타버스 디지털 트윈 결과물 최종 프레젠테이션)` ,
+- 12차시: 배리어 프리 스페이스 쇼케이스 (메타버스 디지털 트윈 결과물 최종 프레젠테이션)`,
                 timeline: [
                     { id: 1, title: "누구도 소외되지 않는 디자인, 배리어 프리", phase: "도입 및 기초", body: "휠체어를 이용하는 학생, 다문화 학생, 고령층이 일상에서 느끼는 불편함을 학습합니다. 유니버설 디자인 및 배리어 프리가 필요한 이유를 공감합니다." },
                     { id: 2, title: "메타버스로 구현하는 현실: 디지털 트윈", phase: "도입 및 기초", body: "CoSpaces Edu 또는 Roblox Studio의 가상 현실 물리 엔진을 파악합니다. 마우스 휠, 단축키 조작을 이용해 기본 도형으로 3D 구조를 정교하게 얹어봅니다." },
@@ -1662,6 +1813,7 @@
         // Copy Curriculum to Clipboard
         function copyCurriculum(programId) {
             const textToCopy = curriculumData[programId].markdown;
+            const progTitle = curriculumData[programId].title;
             
             // Create dummy textarea
             const textarea = document.createElement('textarea');
@@ -1671,7 +1823,7 @@
             
             try {
                 document.execCommand('copy');
-                showToast();
+                showToast(progTitle);
             } catch (err) {
                 console.error('Failed to copy', err);
             }
@@ -1680,8 +1832,11 @@
         }
 
         // Show Toast
-        function showToast() {
+        function showToast(programName) {
             const toast = document.getElementById('toast');
+            document.getElementById('toastTitle').innerText = `"${programName}" 복사 완료!`;
+            document.getElementById('toastMessage').innerText = `클립보드에 12차시 마크다운 기획안이 복사되었습니다.`;
+            
             toast.classList.add('active');
             
             setTimeout(() => {
